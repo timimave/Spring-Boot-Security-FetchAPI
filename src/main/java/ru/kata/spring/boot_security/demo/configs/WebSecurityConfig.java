@@ -19,7 +19,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, BCryptPasswordEncoder passwordEncoder) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler,
+        BCryptPasswordEncoder passwordEncoder) {
         this.successUserHandler = successUserHandler;
         this.passwordEncoder = passwordEncoder;
     }
@@ -48,7 +49,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .password(passwordEncoder().encode("user"))
                 .roles("USER")
                 .build();
-        return new InMemoryUserDetailsManager(user);
+        UserDetails admin =
+            User.builder()
+                .username("admin")
+                .password(passwordEncoder().encode("admin"))
+                .roles("ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(user, admin);
+
     }
 
     @Bean
@@ -56,9 +64,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    /*Этот код настраивает механизм аутентификации Spring Security для
+     использования менеджера аутентификации в памяти.
+      Метод configureGlobal() использует AuthenticationManagerBuilder
+      для настройки менеджера аутентификации в памяти.
+       В данном случае, метод inMemoryAuthentication() указывает Spring Security
+       создать InMemoryUserDetailsManager, который хранит пользователя "user"
+        с паролем "user" и ролью "USER".
+        Приложение может использовать этого пользователя для
+         аутентификации и авторизации запросов.*/
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password(passwordEncoder.encode("user")).roles("USER");
+        auth.inMemoryAuthentication()
+            .withUser("user")
+            .password(passwordEncoder
+            .encode("user"))
+            .roles("USER")
+            .and()
+            .withUser("admin")
+            .password(passwordEncoder.encode("admin"))
+            .roles("ADMIN");
     }
 }
 
