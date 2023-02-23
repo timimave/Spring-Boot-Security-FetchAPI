@@ -29,16 +29,16 @@ public class User  implements UserDetails {
     @Column(name = "name")
     private String name;
     @Column(name = "lastName")
-    private String lastName;
+    private String lastname;
     @Column(name = "isPersonStudyingJava")
     private Boolean PersonWhoStudiesJava;
     @NonNull
     @Column(name = "password")
-    private String passWord;
+    private String password;
 
     @Column(unique = true,name = "userName")
     @NonNull
-    private String userName;
+    private String username;
 
     @Transient
     private String confirmPass;
@@ -56,17 +56,16 @@ public class User  implements UserDetails {
 
     }
 
-    public User(String name, String lastName, Boolean personWhoStudiesJava,
-        @NonNull String passWord, @NonNull String userName,
+    public User(String name, String lastname, Boolean personWhoStudiesJava,
+        @NonNull String password, @NonNull String username,
         @NonNull Set<Role> roles) {
         this.name = name;
-        this.lastName = lastName;
+        this.lastname = lastname;
         PersonWhoStudiesJava = personWhoStudiesJava;
-        this.passWord = passWord;
-        this.userName = userName;
+        this.password = password;
+        this.username = username;
         this.roles = roles;
     }
-
 
     public Long getId() {
         return id;
@@ -84,12 +83,12 @@ public class User  implements UserDetails {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public Boolean getPersonWhoStudiesJava() {
@@ -102,20 +101,20 @@ public class User  implements UserDetails {
 
     @Override
     public String getPassword() {
-        return passWord;
+        return password;
     }
 
-    public void setPassWord(@NonNull String passWord) {
-        this.passWord = passWord;
+    public void setPassword(@NonNull String password) {
+        this.password = password;
     }
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
-    public void setUserName(@NonNull String userName) {
-        this.userName = userName;
+    public void setUsername(@NonNull String username) {
+        this.username = username;
     }
 
     public String getConfirmPass() {
@@ -166,10 +165,10 @@ public class User  implements UserDetails {
         return "User {" +
             "id = " + id +
             ", name = '" + name + '\'' +
-            ", lastName = '" + lastName + '\'' +
+            ", lastName = '" + lastname + '\'' +
             ", PersonWhoStudiesJava = " + PersonWhoStudiesJava +
-            ", passWord = '" + passWord + '\'' +
-            ", userName = '" + userName + '\'' +
+            ", passWord = '" + password + '\'' +
+            ", userName = '" + username + '\'' +
             ", roles = " + roles +
             '}';
     }
@@ -188,14 +187,14 @@ public class User  implements UserDetails {
         User user = (User) o;
         return Objects.equals(getId(), user.getId())
             && Objects.equals(getName(), user.getName())
-            && Objects.equals(getLastName(), user.getLastName())
+            && Objects.equals(getLastname(), user.getLastname())
             && Objects.equals(getPersonWhoStudiesJava(),
             user.getPersonWhoStudiesJava());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getLastName(),
+        return Objects.hash(getId(), getName(), getLastname(),
             getPersonWhoStudiesJava());
     }
 }
