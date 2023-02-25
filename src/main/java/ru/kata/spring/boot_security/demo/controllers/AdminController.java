@@ -39,7 +39,7 @@ public class AdminController {
         model.addAttribute("user", userService.getById(id));
         Set<Role> roles = user.getRoles();
         model.addAttribute("roles", roleList);
-        return "/CRUD/editUser";
+        return "/CRUD/editUser"; // бам
     }
 
     @GetMapping(value = "/addUser") // 2

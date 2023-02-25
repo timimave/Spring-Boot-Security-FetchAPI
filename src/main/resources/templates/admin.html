@@ -13,7 +13,7 @@
       <td th:text="${user.getId()}"></td>
       <td th:text="${user.getUsername()}"></td>
       <td th:text="${user.getName()}"></td>
-      <td th:text="${user.getLastname()()}"></td>
+      <td th:text="${user.getLastname()}"></td>
       <td th:text="${user.getPersonWhoStudiesJava()}"></td>
       <td th:text="${user.getRoles()}"></td>
       <td><a th:text="Edit" th:href="@{editUser/{userId}(userId=${user.getId()})}"></a>&nbsp;|&nbsp;<a th:text="Delete" th:href="@{deleteUser/{userId}(userId=${user.getId()})}"></a>
