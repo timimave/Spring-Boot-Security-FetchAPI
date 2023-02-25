@@ -11,18 +11,25 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import ru.kata.spring.boot_security.demo.services.UserService;
+import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     private final SuccessUserHandler successUserHandler;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final UserServiceImpl userService;
+
 
     public WebSecurityConfig(SuccessUserHandler successUserHandler,
-        BCryptPasswordEncoder passwordEncoder) {
+        BCryptPasswordEncoder passwordEncoder, UserServiceImpl userService) {
         this.successUserHandler = successUserHandler;
         this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
     }
 
     @Override
@@ -64,21 +71,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    /*Этот код настраивает механизм аутентификации Spring Security для
-     использования менеджера аутентификации в памяти.
-      Метод configureGlobal() использует AuthenticationManagerBuilder
-      для настройки менеджера аутентификации в памяти.
-       В данном случае, метод inMemoryAuthentication() указывает Spring Security
-       создать InMemoryUserDetailsManager, который хранит пользователя "user"
-        с паролем "user" и ролью "USER".
-        Приложение может использовать этого пользователя для
-         аутентификации и авторизации запросов.*/
+
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configureGlobalForUsers(AuthenticationManagerBuilder auth)
+        throws Exception {
+//        auth.userDetailsService(userService)
+//            .passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(userService)
+            .passwordEncoder(NoOpPasswordEncoder.getInstance());
+    }
+
+
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth)
+        throws Exception {
         auth.inMemoryAuthentication()
             .withUser("user")
             .password(passwordEncoder
-            .encode("user"))
+                .encode("user"))
             .roles("USER")
             .and()
             .withUser("admin")

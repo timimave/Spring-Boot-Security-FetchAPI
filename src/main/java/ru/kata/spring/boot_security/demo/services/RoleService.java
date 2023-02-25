@@ -1,8 +1,10 @@
 package ru.kata.spring.boot_security.demo.services;
 
 import java.util.Collection;
+import java.util.List;
 import ru.kata.spring.boot_security.demo.model.Role;
 
 public interface RoleService {
-    Collection<Role> getAllRoles();
+    List<Role> getAllRoles();
+    Role getRoleById(Long id);
 }

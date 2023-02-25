@@ -31,7 +31,7 @@ public class User  implements UserDetails {
     @Column(name = "lastName")
     private String lastname;
     @Column(name = "isPersonStudyingJava")
-    private Boolean PersonWhoStudiesJava;
+    private String PersonWhoStudiesJava;
     @NonNull
     @Column(name = "password")
     private String password;
@@ -56,7 +56,7 @@ public class User  implements UserDetails {
 
     }
 
-    public User(String name, String lastname, Boolean personWhoStudiesJava,
+    public User(String name, String lastname, String personWhoStudiesJava,
         @NonNull String password, @NonNull String username,
         @NonNull Set<Role> roles) {
         this.name = name;
@@ -91,11 +91,11 @@ public class User  implements UserDetails {
         this.lastname = lastname;
     }
 
-    public Boolean getPersonWhoStudiesJava() {
+    public String getPersonWhoStudiesJava() {
         return PersonWhoStudiesJava;
     }
 
-    public void setPersonWhoStudiesJava(Boolean personWhoStudiesJava) {
+    public void setPersonWhoStudiesJava(String personWhoStudiesJava) {
         PersonWhoStudiesJava = personWhoStudiesJava;
     }
 
