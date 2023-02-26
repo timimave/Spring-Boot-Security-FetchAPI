@@ -50,10 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails user =
+        UserDetails tool =
             User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("user"))
+                .username("tool")
+                .password(passwordEncoder().encode("tool"))
                 .roles("USER")
                 .build();
         UserDetails admin =
@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .password(passwordEncoder().encode("admin"))
                 .roles("ADMIN")
                 .build();
-        return new InMemoryUserDetailsManager(user, admin);
+        return new InMemoryUserDetailsManager(tool, admin);
 
     }
 
@@ -87,9 +87,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth)
         throws Exception {
         auth.inMemoryAuthentication()
-            .withUser("user")
+            .withUser("tool")
             .password(passwordEncoder
-                .encode("user"))
+                .encode("tool"))
             .roles("USER")
             .and()
             .withUser("admin")

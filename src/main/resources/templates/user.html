@@ -6,15 +6,30 @@
     <title>User Account</title>
 </head>
 <body>
-<h1 th:text="${user.getUsername()}"></h1>
-<label>Name</label>
-<p th:text="${user.getName()}"></p>
-<label>LastName</label>
-<p th:text="${user.getLastname()}"></p>
-<label>Изучает java?</label>
-<p th:text="${user.getPersonWhoStudiesJava()}"></p>
-<label>Roles</label>
-<p th:each="role: ${user.getRoles()}" th:text="${role.getRole()}"></p>
+
+
+<!--<h1 th:if="${user != null}" th:text="${user.getUsername()}"></h1>-->
+<!--<label>Name</label>-->
+<!--<p th:if="${user != null}" th:text="${user.getName()}"></p>-->
+<!--<label>LastName</label>-->
+<!--<p th:if="${user != null}" th:text="${user.getLastname()}"></p>-->
+<!--<label>Изучает java?</label>-->
+<!--<p th:if="${user != null}" th:text="${user.getPersonWhoStudiesJava()}"></p>-->
+<!--<label>Roles</label>-->
+<!--<p th:each="role: ${user.getRoles()}" th:text="${role.getRole()}"></p>-->
+
+<div class="user-container">
+    <h1 th:if="${user != null}" th:text="${user.getUsername()}"></h1>
+    <label>Name</label>
+    <p th:if="${user != null}" th:text="${user.getName()}"></p>
+    <label>LastName</label>
+    <p th:if="${user != null}" th:text="${user.getLastname()}"></p>
+    <label>Изучает java?</label>
+    <p th:if="${user != null}" th:text="${user.getPersonWhoStudiesJava()}"></p>
+    <label>Roles</label>
+    <p th:each="role: ${user.getRoles()}" th:text="${role.getRole()}"></p>
+</div>
+
 
 <form th:method="POST" th:action="@{/logout}">
     <input id="logout" type="submit" value="Logout">
@@ -22,3 +37,58 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <link rel="stylesheet" href="/style.css" />-->
+<!--    <title>User Account</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--&lt;!&ndash; Заголовок с именем пользователя &ndash;&gt;-->
+<!--<h1 th:if="${user != null}" th:text="${user.getUsername()}" class="user-name"></h1>-->
+
+<!--&lt;!&ndash; Поле с именем пользователя &ndash;&gt;-->
+<!--<div class="form-group">-->
+<!--    <label>Name:</label>-->
+<!--    <p th:if="${user != null}" th:text="${user.getName()}" class="form-control"></p>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Поле с фамилией пользователя &ndash;&gt;-->
+<!--<div class="form-group">-->
+<!--    <label>Last Name:</label>-->
+<!--    <p th:if="${user != null}" th:text="${user.getLastname()}" class="form-control"></p>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Поле, указывающее изучает ли пользователь Java &ndash;&gt;-->
+<!--<div class="form-group">-->
+<!--    <label>Изучает Java?</label>-->
+<!--    <p th:if="${user != null}" th:text="${user.getPersonWhoStudiesJava()}" class="form-control"></p>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Поле с ролями пользователя &ndash;&gt;-->
+<!--<div class="form-group">-->
+<!--    <label>Roles:</label>-->
+<!--    <p th:each="role: ${user.getRoles()}" th:text="${role.getRole()}" class="form-control"></p>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Форма для выхода из аккаунта &ndash;&gt;-->
+<!--<div class="form-group">-->
+<!--    <form th:method="POST" th:action="@{/logout}">-->
+<!--        <input id="logout" type="submit" value="Logout" class="btn btn-primary">-->
+<!--    </form>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+

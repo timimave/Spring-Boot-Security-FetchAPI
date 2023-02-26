@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getUserByName(String username) {
+    public User getUserByName(String username) { // usera он ищет в базе данных
         for (User user : getAllUsers()) {
             if (user.getUsername().equals(username)) {
                 return Optional.of(user).get();

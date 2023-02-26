@@ -19,8 +19,8 @@ import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 //    @PostConstruct
 //    public void initializeData() {
 //        // Создаем и сохраняем несколько ролей в базу данных
-//        Role adminRole = new Role("ROLE_ADMIN");
-//        Role userRole = new Role("ROLE_USER");
+//        Role adminRole = new Role("ADMIN");
+//        Role userRole = new Role("USER");
 //        roleRepository.saveAll(Arrays.asList(adminRole, userRole));
 //    }
 //}
