@@ -8,7 +8,7 @@ public interface UserService {
     public boolean addUser(User user);
     public boolean deleteUser(Long id);
     public boolean updateUser(User user);
-    @Query("from User u left join fetch u") //  @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles")
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles") // @Query("from User u left join fetch u")
     public List<User> getAllUsers();
     public User getById(Long id);
     public User getUserByName(String username);

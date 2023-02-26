@@ -36,7 +36,7 @@ public class AdminController {
         User user = userService.getById(id);
         model.addAttribute("user", user);
         model.addAttribute("roleList", roleService.getAllRoles());
-        model.addAttribute("user", userService.getById(id));
+        //   model.addAttribute("user", userService.getById(id));
         Set<Role> roles = user.getRoles();
         model.addAttribute("roles", roleList);
         return "/CRUD/editUser"; // бам
@@ -55,10 +55,10 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PatchMapping(value = "/editUser/{getId}")
-    public String saveEditUser(@PathVariable Long getId,
-        @ModelAttribute("user") User user,
-        @RequestParam(required = false, value = "roleIds") Long[] roleIds) {
+    @PatchMapping(value = "/editUser/{getId}") // изменил на post
+    public String saveEditUser(@PathVariable Long getId, @ModelAttribute("user")
+    User user, @RequestParam(required = false, value = "roleIds") Long[] roleIds)
+    {
 
         Set<Role> roles = new HashSet<>();
         if (roleIds != null) {
@@ -68,6 +68,7 @@ public class AdminController {
         }
 
         user.setRoles(roles);
+        user.setId(getId);
         userService.updateUser(user);
         return "redirect:/admin";
     }

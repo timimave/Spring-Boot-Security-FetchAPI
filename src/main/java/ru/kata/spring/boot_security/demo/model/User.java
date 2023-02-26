@@ -36,7 +36,7 @@ public class User  implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(unique = true,name = "userName")
+    @Column()// unique = true
     @NonNull
     private String username;
 
@@ -100,6 +100,7 @@ public class User  implements UserDetails {
     }
 
     @Override
+    @NonNull
     public String getPassword() {
         return password;
     }
@@ -109,6 +110,7 @@ public class User  implements UserDetails {
     }
 
     @Override
+    @NonNull
     public String getUsername() {
         return username;
     }

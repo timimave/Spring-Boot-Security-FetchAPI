@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
@@ -41,9 +42,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public boolean addUser(User user) {
-        String encodedPassword = cryptPasswordEncoder.encode(
-            user.getPassword());
+        String encodedPassword = cryptPasswordEncoder.encode(user.getPassword());
+
         userRepository.saveAndFlush(new User(user.getName(), user.getLastname(),
             user.getPersonWhoStudiesJava(), encodedPassword, user.getUsername(),
             user.getRoles()));
@@ -51,6 +53,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public boolean deleteUser(Long id) {
         if (userRepository.findById(id).isPresent()) {
             userRepository.deleteById(id);
@@ -60,14 +63,35 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public boolean updateUser(User user) {
-        if (user == null){
+//        if (user == null) {
+//            return false;
+//        }
+//        else {
+//            user.setPassword(cryptPasswordEncoder.encode(user.getPassword()));
+//            userRepository.saveAndFlush(user);
+//            return true;
+//        }
+
+        if (user == null || user.getId() == null) {
             return false;
+        } else {
+            User existingUser = userRepository.findById(user.getId()).orElse(null);
+            if (existingUser == null) {
+                return false;
+            } else {
+                existingUser.setName(user.getName());
+                existingUser.setLastname(user.getLastname());
+                existingUser.setPersonWhoStudiesJava(user.getPersonWhoStudiesJava());
+                existingUser.setPassword(cryptPasswordEncoder.encode(user.getPassword()));
+                existingUser.setUsername(user.getUsername());
+                existingUser.setRoles(user.getRoles());
+                userRepository.save(existingUser);
+                return true;
+            }
         }
-        else {
-            userRepository.save(user);
-            return true;
-        }
+
     }
 
     @Override
@@ -78,6 +102,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getById(Long id) {
         return userRepository.findById(id).orElse(new User());
+
+        //Эта строка кода возвращает объект типа User, найденный в
+        // репозитории по идентификатору, который передается в качестве аргумента.
+        // В случае если объект не найден, то возвращается новый объект User.
     }
 
     @Override
