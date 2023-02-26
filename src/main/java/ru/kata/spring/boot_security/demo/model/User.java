@@ -30,7 +30,7 @@ public class User  implements UserDetails {
     private String name;
     @Column(name = "lastName")
     private String lastname;
-    @Column(name = "isPersonStudyingJava")
+    @Column(name = "isPersonStudyingJava") // isJavaStudent
     private String PersonWhoStudiesJava;
     @NonNull
     @Column(name = "password")

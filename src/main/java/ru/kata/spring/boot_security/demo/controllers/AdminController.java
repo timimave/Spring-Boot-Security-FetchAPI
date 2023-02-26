@@ -30,58 +30,60 @@ public class AdminController {
         this.cryptPasswordEncoder = cryptPasswordEncoder;
     }
 
-    @GetMapping(value = "/editUser/{id}")
-    public String editUser(@PathVariable Long id, Model model) {
-        List<Role> roleList = roleService.getAllRoles();
-        User user = userService.getById(id);
-        model.addAttribute("user", user);
-        model.addAttribute("roleList", roleService.getAllRoles());
-        //   model.addAttribute("user", userService.getById(id));
-        Set<Role> roles = user.getRoles();
-        model.addAttribute("roles", roleList);
-        return "/CRUD/editUser"; // бам
-    }
-
-    @GetMapping(value = "/addUser") // 2
-    public String addUser(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "/CRUD/addUser";
-    }
-
-    @GetMapping(value = "/deleteUser/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return "redirect:/admin";
-    }
-
-    @PatchMapping(value = "/editUser/{getId}") // изменил на post
-    public String saveEditUser(@PathVariable Long getId, @ModelAttribute("user")
-    User user, @RequestParam(required = false, value = "roleIds") Long[] roleIds)
-    {
-
-        Set<Role> roles = new HashSet<>();
-        if (roleIds != null) {
-            for (long i : roleIds) {
-                roles.add(roleService.getRoleById(i));
-            }
+        @GetMapping(value = "/editUser/{id}")
+        public String editUser(@PathVariable Long id, Model model) {
+            List<Role> roleList = roleService.getAllRoles();
+            User user = userService.getById(id);
+            Set<Role> roles = user.getRoles();
+            model.addAttribute("user", user);
+            model.addAttribute("roleList", roleList);
+            //   model.addAttribute("user", userService.getById(id));
+            model.addAttribute("roles", roles);
+            return "/CRUD/editUser"; // бам
         }
 
-        user.setRoles(roles);
-        user.setId(getId);
-        userService.updateUser(user);
-        return "redirect:/admin";
-    }
+        @GetMapping(value = "/addUser") // 2
+        public String addUser(Model model) {
+            User user = new User();
+            user.setRoles(new HashSet<>());
+            model.addAttribute("user", new User());
+            model.addAttribute("roleList", roleService.getAllRoles()); // замена roles на roleList
+            return "/CRUD/addUser";
+        }
 
-    @PostMapping(value = "/addUser") // 3
-    public String saveUser(@ModelAttribute("user") User user) {
-        userService.addUser(user); //
-        return "redirect:/admin";
-    }
+        @GetMapping(value = "/deleteUser/{id}")
+        public String deleteUser(@PathVariable Long id) {
+            userService.deleteUser(id);
+            return "redirect:/admin";
+        }
 
-    @GetMapping("/admin") // 1
-    public String adminAcc(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "/admin";
-    }
+        @PatchMapping(value = "/editUser/{getId}") // изменил на post
+        public String saveEditUser(@PathVariable Long getId, @ModelAttribute("user")
+        User user, @RequestParam(required = false, value = "roleIds") Long[] roleIds)
+        {
+
+            Set<Role> roles = new HashSet<>();
+            if (roleIds != null) {
+                for (long i : roleIds) {
+                    roles.add(roleService.getRoleById(i));
+                }
+            }
+
+            user.setRoles(roles);
+            user.setId(getId);
+            userService.updateUser(user);
+            return "redirect:/admin";
+        }
+
+        @PostMapping(value = "/addUser") // 3
+        public String saveUser(@ModelAttribute("user") User user) {
+            userService.addUser(user); //
+            return "redirect:/admin";
+        }
+
+        @GetMapping("/admin") // 1
+        public String adminAcc(Model model) {
+            model.addAttribute("users", userService.getAllUsers());
+            return "/admin";
+        }
 }

@@ -28,7 +28,7 @@
                  th:value="${user.getLastname()}" class="data" required></td>
     </tr>
     <tr>
-      <td>Watched Supernatural?</td>
+      <td>Учит java? </td>
       <td><input th:type="text" th:field="*{personWhoStudiesJava}"
                  th:value="${user.getPersonWhoStudiesJava()}"
                  class="data" required></td>
@@ -39,13 +39,34 @@
                  th:value="${user.getPassword()}" class="data" required ></td>
     </tr>
     <tr>
+<!--      <td>Roles</td>-->
+<!--      <td>-->
+<!--        <th:block th:each="role : ${roleList}">-->
+<!--          <input type="checkbox" name="roleIds"  th:value="${role.getId}"/>-->
+<!--          <label th:text="${role.role}"></label>-->
+<!--        </th:block>-->
+<!--      </td>-->
+
+<!--      <td>Roles</td>-->
+<!--      <td>-->
+<!--        <th:block th:each="role : ${roleList}">-->
+<!--          <input type="checkbox" name="roleIds" th:value="${role.getId}"-->
+<!--                 th:checked="${roles.contains(role)}"/>-->
+<!--          <label th:text="${role.role}"></label>-->
+<!--        </th:block>-->
+<!--      </td>-->
+
       <td>Roles</td>
       <td>
         <th:block th:each="role : ${roleList}">
-          <input type="checkbox" name="roleIds"  th:value="${role.getId}"/>
+          <input type="checkbox" name="roleIds" th:value="${role.id}"
+                 th:checked="${user.roles.contains(role)}" />
           <label th:text="${role.role}"></label>
         </th:block>
+<!--        <div th:if="${roles.isEmpty()}">No roles found</div>-->
       </td>
+
+
     </tr>
     <tr>
       <td colspan="2" height="20px"></td>

@@ -33,12 +33,19 @@
       <td><input th:type="text" th:field="*{password}" required class="data">
       </td>
     </tr>
-    <tr>
-      <td>Roles</td>
-      <td><input type="checkbox" name="roles" th:each="role: ${roles}"
-                 th:value="${role.getId()}" th:text="${role.getRole()}"
-                 th:field="*{roles}">&nbsp;&nbsp
-      </td>
+
+    <td>Roles</td>
+    <td>
+      <div th:each="role : ${roleList}">
+        <label>
+          <input type="checkbox" th:field="*{roles}" th:value="${role.id}"
+                 th:checked="${user.roles.contains(role)}"/>
+          <span th:text="${role.role}"></span>
+        </label>
+      </div>
+    </td>
+    </tr>
+
     </tr>
     <tr>
       <td colspan="2" height="20px"></td>
@@ -52,3 +59,11 @@
 </form>
 </body>
 </html>
+
+
+<!-- <td><input type="checkbox" name="roles" th:each="role: ${roles}"
+                 th:value="${role.role}" th:text="${role.getRole()}"
+                 th:field="*{roles}">&nbsp;&nbsp
+        <div th:if="${roles.isEmpty()}">No roles found</div>
+
+      </td> -->
