@@ -17,7 +17,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
-@Controller
+@Controller(value = "/admin") // тут этого не было
 public class AdminController {
     private final UserService userService;
     private final RoleService roleService;

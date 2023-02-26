@@ -48,23 +48,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .permitAll();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails tool =
-            User.builder()
-                .username("tool")
-                .password(passwordEncoder().encode("tool"))
-                .roles("USER")
-                .build();
-        UserDetails admin =
-            User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(tool, admin);
-
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails tool =
+//            User.builder()
+//                .username("tool")
+//                .password(passwordEncoder().encode("tool"))
+//                .roles("USER")
+//                .build();
+//        UserDetails admin =
+//            User.builder()
+//                .username("admin")
+//                .password(passwordEncoder().encode("admin"))
+//                .roles("ADMIN")
+//                .build();
+//        return new InMemoryUserDetailsManager(tool, admin);
+//
+//    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -75,27 +75,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     protected void configureGlobalForUsers(AuthenticationManagerBuilder auth)
         throws Exception {
-//        auth.userDetailsService(userService)
-//            .passwordEncoder(new BCryptPasswordEncoder());
         auth.userDetailsService(userService)
-            .passwordEncoder(NoOpPasswordEncoder.getInstance());
+            .passwordEncoder(new BCryptPasswordEncoder());
+//        auth.userDetailsService(userService)
+//            .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
 
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth)
-        throws Exception {
-        auth.inMemoryAuthentication()
-            .withUser("tool")
-            .password(passwordEncoder
-                .encode("tool"))
-            .roles("USER")
-            .and()
-            .withUser("admin")
-            .password(passwordEncoder.encode("admin"))
-            .roles("ADMIN");
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth)
+//        throws Exception {
+//        auth.inMemoryAuthentication()
+//            .withUser("tool")
+//            .password(passwordEncoder
+//                .encode("tool"))
+//            .roles("USER")
+//            .and()
+//            .withUser("admin")
+//            .password(passwordEncoder.encode("admin"))
+//            .roles("ADMIN");
+//    }
 }
 
 
