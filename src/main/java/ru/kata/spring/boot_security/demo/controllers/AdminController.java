@@ -75,7 +75,6 @@ public class AdminController {
                 roles.add(roleService.getRoleById(i));
             }
         }
-
         user.setRoles(roles);
         user.setId(getId);
         userService.updateUser(user);
