@@ -17,8 +17,9 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
-@Controller(value = "/admin") // тут этого не было
+@Controller() // тут этого не было
 public class AdminController {
+
     private final UserService userService;
     private final RoleService roleService;
     private final BCryptPasswordEncoder cryptPasswordEncoder;
@@ -30,60 +31,62 @@ public class AdminController {
         this.cryptPasswordEncoder = cryptPasswordEncoder;
     }
 
-        @GetMapping(value = "/editUser/{id}")
-        public String editUser(@PathVariable Long id, Model model) {
-            List<Role> roleList = roleService.getAllRoles();
-            User user = userService.getById(id);
-            Set<Role> roles = user.getRoles();
-            model.addAttribute("user", user);
-            model.addAttribute("roleList", roleList);
-            //   model.addAttribute("user", userService.getById(id));
-            model.addAttribute("roles", roles);
-            return "/CRUD/editUser"; // бам
-        }
+    @GetMapping("/admin") // 1
+    public String adminAcc(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
+        return "/admin";
+    }
 
-        @GetMapping(value = "/addUser") // 2
-        public String addUser(Model model) {
-            User user = new User();
-            user.setRoles(new HashSet<>());
-            model.addAttribute("user", new User());
-            model.addAttribute("roleList", roleService.getAllRoles()); // замена roles на roleList
-            return "/CRUD/addUser";
-        }
+    @GetMapping(value = "/editUser/{id}")
+    public String editUser(@PathVariable Long id, Model model) {
+        List<Role> roleList = roleService.getAllRoles();
+        User user = userService.getById(id);
+        Set<Role> roles = user.getRoles();
+        model.addAttribute("user", user);
+        model.addAttribute("roleList", roleList);
+        model.addAttribute("roles", roles);
+        return "/CRUD/editUser"; // бам
+    }
 
-        @GetMapping(value = "/deleteUser/{id}")
-        public String deleteUser(@PathVariable Long id) {
-            userService.deleteUser(id);
-            return "redirect:/admin";
-        }
+    @GetMapping(value = "/addUser") // 2
+    public String addUser(Model model) {
+        User user = new User();
+        user.setRoles(new HashSet<>());
+        model.addAttribute("user", new User());
+        model.addAttribute("roleList",
+            roleService.getAllRoles()); // замена roles на roleList
+        return "/CRUD/addUser";
+    }
 
-        @PatchMapping(value = "/editUser/{getId}") // изменил на post
-        public String saveEditUser(@PathVariable Long getId, @ModelAttribute("user")
-        User user, @RequestParam(required = false, value = "roleIds") Long[] roleIds)
-        {
+    @GetMapping(value = "/deleteUser/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return "redirect:/admin";
+    }
 
-            Set<Role> roles = new HashSet<>();
-            if (roleIds != null) {
-                for (long i : roleIds) {
-                    roles.add(roleService.getRoleById(i));
-                }
+    @PatchMapping(value = "/editUser/{getId}") // изменил на post
+    public String saveEditUser(@PathVariable Long getId, @ModelAttribute("user")
+    User user,
+        @RequestParam(required = false, value = "roleIds") Long[] roleIds) {
+
+        Set<Role> roles = new HashSet<>();
+        if (roleIds != null) {
+            for (long i : roleIds) {
+                roles.add(roleService.getRoleById(i));
             }
-
-            user.setRoles(roles);
-            user.setId(getId);
-            userService.updateUser(user);
-            return "redirect:/admin";
         }
 
-        @PostMapping(value = "/addUser") // 3
-        public String saveUser(@ModelAttribute("user") User user) {
-            userService.addUser(user); //
-            return "redirect:/admin";
-        }
+        user.setRoles(roles);
+        user.setId(getId);
+        userService.updateUser(user);
+        return "redirect:/admin";
+    }
 
-        @GetMapping("/admin") // 1
-        public String adminAcc(Model model) {
-            model.addAttribute("users", userService.getAllUsers());
-            return "/admin";
-        }
+    @PostMapping(value = "/addUser") // 3
+    public String saveUser(@ModelAttribute("user") User user) {
+        userService.addUser(user); //
+        return "redirect:/admin";
+    }
+
+
 }

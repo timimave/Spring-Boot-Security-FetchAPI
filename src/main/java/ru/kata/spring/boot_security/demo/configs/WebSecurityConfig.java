@@ -31,17 +31,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Autowired
+    protected void config(AuthenticationManagerBuilder auth)
+        throws Exception {
+        auth.userDetailsService(userService)
+            .passwordEncoder(new BCryptPasswordEncoder());
+//        auth.userDetailsService(userService)
+//            .passwordEncoder(NoOpPasswordEncoder.getInstance());
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/", "/index").permitAll()
-            .antMatchers("/user").hasRole("USER")
-            .antMatchers("/admin").hasRole("ADMIN")
+            .antMatchers("/roles").hasRole("USER")
+            .antMatchers(  "/user").hasAnyRole("USER", "ADMIN")
             .anyRequest().authenticated()
             .and()
-            .formLogin().successHandler(successUserHandler)
+            .formLogin()
+            .successHandler(new SuccessUserHandler())
             .permitAll()
             .and()
             .logout()
@@ -66,20 +79,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //    }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 
-    @Autowired
-    protected void configureGlobalForUsers(AuthenticationManagerBuilder auth)
-        throws Exception {
-        auth.userDetailsService(userService)
-            .passwordEncoder(new BCryptPasswordEncoder());
-//        auth.userDetailsService(userService)
-//            .passwordEncoder(NoOpPasswordEncoder.getInstance());
-    }
+
+
 
 
 
@@ -99,8 +102,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 }
 
 
+//            .antMatchers("/", "/index").permitAll()
+//            .antMatchers("/user").hasRole("USER")
+//            .antMatchers("/admin").hasRole("ADMIN")
 
-
+//            .antMatchers(  "/user").hasAnyRole("USER", "ADMIN")
+//            .antMatchers("/admin", "CRUD/editUser", "CRUD/addUser").hasRole("ADMIN")
+//    .formLogin().successHandler(successUserHandler)
 
 //        Эти методы позволяют авторизовать запросы,
 //        разрешив доступ к путям «/» и «/index»
