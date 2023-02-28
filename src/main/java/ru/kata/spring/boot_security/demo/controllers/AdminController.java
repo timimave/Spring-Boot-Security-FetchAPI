@@ -17,7 +17,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
-@Controller() // тут этого не было
+@Controller()
 public class AdminController {
 
     private final UserService userService;
@@ -31,10 +31,10 @@ public class AdminController {
         this.cryptPasswordEncoder = cryptPasswordEncoder;
     }
 
-    @GetMapping("/admin") // 1
+    @GetMapping("/admin")
     public String adminAcc(Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        return "/admin";
+        return "admin-info/admin";
     }
 
     @GetMapping(value = "/editUser/{id}")
@@ -48,13 +48,13 @@ public class AdminController {
         return "/CRUD/editUser"; // бам
     }
 
-    @GetMapping(value = "/addUser") // 2
+    @GetMapping(value = "/addUser")
     public String addUser(Model model) {
         User user = new User();
         user.setRoles(new HashSet<>());
         model.addAttribute("user", new User());
         model.addAttribute("roleList",
-            roleService.getAllRoles()); // замена roles на roleList
+            roleService.getAllRoles());
         return "/CRUD/addUser";
     }
 
@@ -64,7 +64,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PatchMapping(value = "/editUser/{getId}") // изменил на post
+    @PatchMapping(value = "/editUser/{getId}")
     public String saveEditUser(@PathVariable Long getId, @ModelAttribute("user")
     User user,
         @RequestParam(required = false, value = "roleIds") Long[] roleIds) {
@@ -81,7 +81,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping(value = "/addUser") // 3
+    @PostMapping(value = "/addUser")
     public String saveUser(@ModelAttribute("user") User user) {
         userService.addUser(user); //
         return "redirect:/admin";

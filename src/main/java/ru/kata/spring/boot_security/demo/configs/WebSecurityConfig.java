@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -41,8 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         throws Exception {
         auth.userDetailsService(userService)
             .passwordEncoder(new BCryptPasswordEncoder());
-//        auth.userDetailsService(userService)
-//            .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 
     @Override
@@ -51,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/roles").hasRole("USER")
             .antMatchers("/admin").hasRole("ADMIN")
-            .antMatchers(  "/user").hasAnyRole("USER", "ADMIN")
+            .antMatchers("/user").hasAnyRole("USER", "ADMIN")
             .anyRequest().authenticated()
             .and()
             .formLogin()
@@ -61,61 +60,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .logout()
             .permitAll();
     }
-
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        UserDetails tool =
-//            User.builder()
-//                .username("tool")
-//                .password(passwordEncoder().encode("tool"))
-//                .roles("USER")
-//                .build();
-//        UserDetails admin =
-//            User.builder()
-//                .username("admin")
-//                .password(passwordEncoder().encode("admin"))
-//                .roles("ADMIN")
-//                .build();
-//        return new InMemoryUserDetailsManager(tool, admin);
-//
-//    }
-
-
-
-
-
-
-
-
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth)
-//        throws Exception {
-//        auth.inMemoryAuthentication()
-//            .withUser("tool")
-//            .password(passwordEncoder
-//                .encode("tool"))
-//            .roles("USER")
-//            .and()
-//            .withUser("admin")
-//            .password(passwordEncoder.encode("admin"))
-//            .roles("ADMIN");
-//    }
 }
 
 
-//            .antMatchers("/", "/index").permitAll()
-//            .antMatchers("/user").hasRole("USER")
-//            .antMatchers("/admin").hasRole("ADMIN")
 
-//            .antMatchers(  "/user").hasAnyRole("USER", "ADMIN")
-//            .antMatchers("/admin", "CRUD/editUser", "CRUD/addUser").hasRole("ADMIN")
-//    .formLogin().successHandler(successUserHandler)
 
-//        Эти методы позволяют авторизовать запросы,
-//        разрешив доступ к путям «/» и «/index»
-//        для всех пользователей, (.permitAll())
-//        доступ к «/user» только для пользователей с ролью «USER»
-//        и доступ к «/admin» только для пользователей с ролью «ADMIN».
-//        Для всех остальных путей необходима аутентификация. - .anyRequest().authenticated()
-//        Кроме того, включена форма входа с обработчиком успеха .formLogin().successHandler(successUserHandler)
-//         и разрешен выход из системы.
+
+
+
+

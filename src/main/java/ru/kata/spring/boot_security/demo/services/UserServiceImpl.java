@@ -82,9 +82,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 return true;
             }
         }
-
     }
-
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -93,14 +91,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getById(Long id) {
         return userRepository.findById(id).orElse(new User());
-
-        //Эта строка кода возвращает объект типа User, найденный в
-        // репозитории по идентификатору, который передается в качестве аргумента.
-        // В случае если объект не найден, то возвращается новый объект User.
     }
 
     @Override
-    public User getUserByName(String username) { // usera он ищет в базе данных
+    public User getUserByName(String username) {
         for (User user : getAllUsers()) {
             if (user.getUsername().equals(username)) {
                 return Optional.of(user).get();
