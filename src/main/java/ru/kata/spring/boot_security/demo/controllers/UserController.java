@@ -27,15 +27,11 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
-
     @GetMapping("/user")
     public String userAccount(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userService.getUserByName(userDetails.getUsername());
-
-        //  User user1 = userService.getById(id);
-        model.addAttribute("message", "Успешно!");
+       // model.addAttribute("message", "Успешно!");
         model.addAttribute("user", user);
         return "user/user";
     }
