@@ -65,15 +65,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public boolean updateUser(User user) {
-//        if (user == null) {
-//            return false;
-//        }
-//        else {
-//            user.setPassword(cryptPasswordEncoder.encode(user.getPassword()));
-//            userRepository.saveAndFlush(user);
-//            return true;
-//        }
-
         if (user == null || user.getId() == null) {
             return false;
         } else {

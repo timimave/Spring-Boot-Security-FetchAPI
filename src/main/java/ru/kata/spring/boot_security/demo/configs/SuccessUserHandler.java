@@ -1,20 +1,13 @@
 package ru.kata.spring.boot_security.demo.configs;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
-import ru.kata.spring.boot_security.demo.model.User;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 @Component                                // Обработчик успешной аутентификации
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
@@ -23,34 +16,24 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess
-        (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+        (HttpServletRequest httpServletRequest,
+            HttpServletResponse httpServletResponse,
             Authentication authentication) throws IOException {
 
+        Set<String> roles = AuthorityUtils.authorityListToSet(
+            authentication.getAuthorities());
 
-
-        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        System.out.println(roles);
-
-
-        if (roles.contains("ROLE_ADMIN") && roles.contains("ROLE_USER")) { // test с двумя ролями перенаправляются на /roles
+        if (roles.contains("ROLE_ADMIN") && roles.contains("ROLE_USER")) {
             httpServletResponse.sendRedirect("/admin");
         } else if (roles.contains("ROLE_USER")) {
-            httpServletResponse.sendRedirect("/user"); // Artur с ролью User перенаправляется на /roles
+            httpServletResponse.sendRedirect("/user");
         } else if (roles.contains("ROLE_ADMIN")) {
-            httpServletResponse.sendRedirect("/admin"); // xxx с ролью админа перенаправляется на /roles
+            httpServletResponse.sendRedirect("/admin");
         } else {
-            httpServletResponse.sendRedirect("/roles"); //
+            httpServletResponse.sendRedirect("/roles");
         }
     }
 }
-
-
-
-
-
-
-
-
 
 // Обработчик успешного пользователя
 //  HttpServletRequest -  HTTP-запрос сервлета
