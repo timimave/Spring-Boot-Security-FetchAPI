@@ -4,6 +4,9 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
+import ru.kata.spring.boot_security.demo.model.User;
 
 @Component                                // Обработчик успешной аутентификации
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
@@ -22,8 +26,12 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
         (HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
             Authentication authentication) throws IOException {
 
+
+
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         System.out.println(roles);
+
+
         if (roles.contains("ROLE_ADMIN") && roles.contains("ROLE_USER")) { // test с двумя ролями перенаправляются на /roles
             httpServletResponse.sendRedirect("/admin");
         } else if (roles.contains("ROLE_USER")) {

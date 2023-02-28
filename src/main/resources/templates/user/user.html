@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
 
 <head>
   <meta charset="UTF-8">
   <title>User Details</title>
 </head>
+
 <body>
+<div th:if="${message}" th:text="${message}"></div>
 
 <h1>User Details</h1>
+
 <p>Id: <span th:text="${user.id}"></span></p>
-<p>User name: <span th:text="${user.name}"></span></p>
+<p>User name: <span th:text="${user.username}"></span></p>
 <p>User lastname: <span th:text="${user.lastname}"></span></p>
 <p>Изучает java?: <span th:text="${user.personWhoStudiesJava}"></span></p>
 <p>Roles: <span th:text="${user.roles}"></span></p>
