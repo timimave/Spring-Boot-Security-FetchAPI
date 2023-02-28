@@ -4,13 +4,42 @@
 <head>
   <meta charset="UTF-8">
   <title>User Details</title>
+
+  <style>
+    .user-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .user-details p {
+      margin: 0 10px;
+    }
+
+    .user-details span {
+      display: inline-block;
+      padding: 5px 10px;
+      background-color: #f5f5f5;
+      color: #333;
+      border-radius: 5px;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    h1 {
+      text-align: center;
+      font-family: "Helvetica Neue", sans-serif;
+    }
+  </style>
+
 </head>
 
 <body>
 <!--<div th:if="${message}" th:text="${message}"></div>-->
 
-<h1>User Details</h1>
-
+<h1>User information-page</h1>
+<div class="user-details">
 <p>Id: <span th:text="${user.id}"></span></p>
 <p>User name: <span th:text="${user.username}"></span></p>
 <p>User lastname: <span th:text="${user.lastname}"></span></p>
@@ -18,7 +47,7 @@
 <p>Roles: <span th:text="${user.roles}"></span></p>
 
 <!-- add other user details here -->
-
+</div>
 </body>
 </html>
 
@@ -32,35 +61,7 @@
 
 
 
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml"-->
-<!--      xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <link rel="stylesheet" href="/Style.css"/>-->
-<!--  <title>User information-page</title>-->
-<!--</head>-->
-<!--<body>-->
 
-<!--<div class="user-container">-->
-<!--  <h1 th:if="${user != null}" th:text="${user.getUsername()}"></h1>-->
-<!--  <label>Name</label>-->
-<!--  <p th:if="${user != null}" th:text="${user.getName()}"></p>-->
-<!--  <label>LastName</label>-->
-<!--  <p th:if="${user != null}" th:text="${user.getLastname()}"></p>-->
-<!--  <label>Изучает java?</label>-->
-<!--  <p th:if="${user != null}" th:text="${user.getPersonWhoStudiesJava()}"></p>-->
-<!--  <label>Roles</label>-->
-<!--  <p th:each="role: ${user.getRoles()}" th:text="${role.getRole()}"></p>-->
-<!--</div>-->
-
-
-<!--<form th:method="POST" th:action="@{/logout}">-->
-<!--  <input id="logout" type="submit" value="Logout">-->
-<!--</form>-->
-
-<!--</body>-->
-<!--</html> -->
 
 
 
