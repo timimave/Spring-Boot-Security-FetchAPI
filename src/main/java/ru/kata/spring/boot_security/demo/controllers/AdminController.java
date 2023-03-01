@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -37,7 +39,7 @@ public class AdminController {
         return "admin-info/admin";
     }
 
-    @GetMapping(value = "/editUser/{id}")
+    @RequestMapping(value = "/editUser/{id}", method = RequestMethod.GET)
     public String editUser(@PathVariable Long id, Model model) {
         List<Role> roleList = roleService.getAllRoles();
         User user = userService.getById(id);
@@ -45,7 +47,7 @@ public class AdminController {
         model.addAttribute("user", user);
         model.addAttribute("roleList", roleList);
         model.addAttribute("roles", roles);
-        return "/CRUD/editUser"; // бам
+        return "/CRUD/editUser";
     }
 
     @GetMapping(value = "/addUser")
@@ -65,16 +67,10 @@ public class AdminController {
     }
 
     @PatchMapping(value = "/editUser/{getId}")
-    public String saveEditUser(@PathVariable Long getId, @ModelAttribute("user")
-    User user, @RequestParam(required = false, value = "roleIds") Long[] roleIds) {
-
-        Set<Role> roles = new HashSet<>();
-        if (roleIds != null) {
-            for (long i : roleIds) {
-                roles.add(roleService.getRoleById(i));
-            }
-        }
-        user.setRoles(roles);
+    public String saveEditUser (@PathVariable Long getId,
+                                @ModelAttribute("user") User user,
+                                @RequestParam(required = false, value = "roleIds") Long[] roleIds) {
+        user.setRoles(userService.getRolesByIds(roleIds));
         user.setId(getId);
         userService.updateUser(user);
         return "redirect:/admin";
@@ -85,6 +81,4 @@ public class AdminController {
         userService.addUser(user); //
         return "redirect:/admin";
     }
-
-
 }

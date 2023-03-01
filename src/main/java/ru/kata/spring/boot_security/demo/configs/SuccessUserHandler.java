@@ -9,19 +9,13 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-@Component                                // Обработчик успешной аутентификации
+@Component // Обработчик успешной аутентификации
 public class SuccessUserHandler implements AuthenticationSuccessHandler {
     // Spring Security использует объект Authentication, пользователя авторизованной сессии.
-
-
     @Override
-    public void onAuthenticationSuccess
-        (HttpServletRequest httpServletRequest,
-            HttpServletResponse httpServletResponse,
-            Authentication authentication) throws IOException {
-
-        Set<String> roles = AuthorityUtils.authorityListToSet(
-            authentication.getAuthorities());
+    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+        Authentication authentication) throws IOException {
+        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
         if (roles.contains("ROLE_ADMIN") && roles.contains("ROLE_USER")) {
             httpServletResponse.sendRedirect("/admin");

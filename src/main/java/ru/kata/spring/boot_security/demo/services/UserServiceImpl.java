@@ -1,19 +1,20 @@
 package ru.kata.spring.boot_security.demo.services;
 
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -21,14 +22,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder cryptPasswordEncoder;
+    private final RoleService roleService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
         RoleRepository roleRepository,
-        BCryptPasswordEncoder cryptPasswordEncoder) {
+        BCryptPasswordEncoder cryptPasswordEncoder, RoleService roleService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.cryptPasswordEncoder = cryptPasswordEncoder;
+        this.roleService = roleService;
     }
 
     @Override
@@ -100,19 +103,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public Set<Role> getRolesByIds(Long[] roleIds) {
+        Set<Role> roles = new HashSet<>();
+        if (roleIds != null) {
+            for (long i : roleIds) {
+                roles.add(roleService.getRoleById(i));
+            }
+        }
+        return roles;
+    }
+
+    @Override
     public User getUserByName(String username) {
         return userRepository.findByName(username);
     }
-
-//     for (User user : getAllUsers()) {
-//        if (user.getUsername().equals(username)) {
-//            return Optional.of(user).get();
-//        }
-//    }
-//        return Optional.<User>empty().get();
 }
-
-// String sql = "SELECT * FROM users WHERE username = ?;";
-//        User user = jdbcTemplate.queryForObject(sql, new Object[]{username},
-//            new BeanPropertyRowMapper<>(User.class));
-//        return user;
