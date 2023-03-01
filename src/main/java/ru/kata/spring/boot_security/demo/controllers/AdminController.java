@@ -66,8 +66,7 @@ public class AdminController {
 
     @PatchMapping(value = "/editUser/{getId}")
     public String saveEditUser(@PathVariable Long getId, @ModelAttribute("user")
-    User user,
-        @RequestParam(required = false, value = "roleIds") Long[] roleIds) {
+    User user, @RequestParam(required = false, value = "roleIds") Long[] roleIds) {
 
         Set<Role> roles = new HashSet<>();
         if (roleIds != null) {

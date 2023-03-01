@@ -2,8 +2,8 @@ package ru.kata.spring.boot_security.demo.services;
 
 
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -44,7 +45,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public boolean addUser(User user) {
-        String encodedPassword = cryptPasswordEncoder.encode(user.getPassword());
+        String encodedPassword = cryptPasswordEncoder.encode(
+            user.getPassword());
 
         userRepository.saveAndFlush(new User(user.getName(), user.getLastname(),
             user.getPersonWhoStudiesJava(), encodedPassword, user.getUsername(),
@@ -68,14 +70,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user == null || user.getId() == null) {
             return false;
         } else {
-            User existingUser = userRepository.findById(user.getId()).orElse(null);
+            User existingUser = userRepository.findById(user.getId())
+                .orElse(null);
             if (existingUser == null) {
                 return false;
             } else {
                 existingUser.setName(user.getName());
                 existingUser.setLastname(user.getLastname());
-                existingUser.setPersonWhoStudiesJava(user.getPersonWhoStudiesJava());
-                existingUser.setPassword(cryptPasswordEncoder.encode(user.getPassword()));
+                existingUser.setPersonWhoStudiesJava(
+                    user.getPersonWhoStudiesJava());
+                existingUser.setPassword(
+                    cryptPasswordEncoder.encode(user.getPassword()));
                 existingUser.setUsername(user.getUsername());
                 existingUser.setRoles(user.getRoles());
                 userRepository.save(existingUser);
@@ -83,6 +88,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
         }
     }
+
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -95,11 +101,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User getUserByName(String username) {
-        for (User user : getAllUsers()) {
-            if (user.getUsername().equals(username)) {
-                return Optional.of(user).get();
-            }
-        }
-        return Optional.<User>empty().get();
+        return userRepository.findByName(username);
     }
+
+//     for (User user : getAllUsers()) {
+//        if (user.getUsername().equals(username)) {
+//            return Optional.of(user).get();
+//        }
+//    }
+//        return Optional.<User>empty().get();
 }
+
+// String sql = "SELECT * FROM users WHERE username = ?;";
+//        User user = jdbcTemplate.queryForObject(sql, new Object[]{username},
+//            new BeanPropertyRowMapper<>(User.class));
+//        return user;
