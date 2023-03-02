@@ -1,9 +1,13 @@
 package ru.kata.spring.boot_security.demo.services;
 
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -93,6 +97,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public void updateUserWithRoles(Long userId, User user, Long[] roleIds) {
+        user.setRoles(getRolesByIds(roleIds));
+        user.setId(userId);
+        updateUser(user);
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -104,13 +115,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Set<Role> getRolesByIds(Long[] roleIds) {
-        Set<Role> roles = new HashSet<>();
-        if (roleIds != null) {
-            for (long i : roleIds) {
-                roles.add(roleService.getRoleById(i));
-            }
+        if (roleIds != null && roleIds.length > 0) {
+              return new HashSet<>(roleRepository.findByIdIn(roleIds));
         }
-        return roles;
+        return Collections.emptySet();
+
     }
 
     @Override

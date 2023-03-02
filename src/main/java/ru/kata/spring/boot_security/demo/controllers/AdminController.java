@@ -70,9 +70,7 @@ public class AdminController {
     public String saveEditUser (@PathVariable Long getId,
                                 @ModelAttribute("user") User user,
                                 @RequestParam(required = false, value = "roleIds") Long[] roleIds) {
-        user.setRoles(userService.getRolesByIds(roleIds));
-        user.setId(getId);
-        userService.updateUser(user);
+        userService.updateUserWithRoles(getId, user, roleIds);
         return "redirect:/admin";
     }
 
