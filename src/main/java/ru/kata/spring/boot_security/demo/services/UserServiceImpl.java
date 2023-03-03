@@ -1,13 +1,9 @@
 package ru.kata.spring.boot_security.demo.services;
 
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.model.Role;
+
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
@@ -98,7 +94,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void updateUserWithRoles(Long userId, User user, Long[] roleIds) {
-        user.setRoles(getRolesByIds(roleIds));
+        user.setRoles(roleService.getRolesByIds(roleIds));
         user.setId(userId);
         updateUser(user);
     }
@@ -113,14 +109,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findById(id).orElse(new User());
     }
 
-    @Override
-    public Set<Role> getRolesByIds(Long[] roleIds) {
-        if (roleIds != null && roleIds.length > 0) {
-              return new HashSet<>(roleRepository.findByIdIn(roleIds));
-        }
-        return Collections.emptySet();
-
-    }
 
     @Override
     public User getUserByName(String username) {

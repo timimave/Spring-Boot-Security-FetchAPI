@@ -1,9 +1,9 @@
 package ru.kata.spring.boot_security.demo.services;
 
 import java.util.List;
-import java.util.Set;
+
 import org.springframework.data.jpa.repository.Query;
-import ru.kata.spring.boot_security.demo.model.Role;
+
 import ru.kata.spring.boot_security.demo.model.User;
 
 public interface UserService {
@@ -14,7 +14,6 @@ public interface UserService {
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles")
     public List<User> getAllUsers();
     public User getById(Long id);
-    public Set<Role> getRolesByIds(Long[] roleIds);
     public User getUserByName(String username);
 
 }
