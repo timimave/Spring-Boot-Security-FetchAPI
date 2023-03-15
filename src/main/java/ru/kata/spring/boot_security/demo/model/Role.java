@@ -60,6 +60,13 @@ public class Role implements GrantedAuthority {
     public String getAuthority() {
         return role;
     }
+    public String getNoPrefix() {
+        if (this.role.startsWith("ROLE_")) {
+            return this.role.substring(5);
+        } else {
+            return this.role;
+        }
+    }
 
     @Override
     public boolean equals(Object o) {

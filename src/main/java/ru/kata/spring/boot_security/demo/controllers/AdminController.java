@@ -36,10 +36,11 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String adminAcc(Model model, Authentication authentication) {
+    public String adminAcc(Model model, Authentication authentication) { // можно ли в параметре просто User использовать вместо userdetails?
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userService.getUserByName(userDetails.getUsername());
         model.addAttribute("user", user);
+        model.addAttribute("roleList",roleService.getAllRoles());
         model.addAttribute("users", userService.getAllUsers());
        // model.addAttribute("user", userService.getById(userDetails.getUsername());
         return "admin-info/admin";
