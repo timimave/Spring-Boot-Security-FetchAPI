@@ -3,6 +3,8 @@ package ru.kata.spring.boot_security.demo.controllers;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,8 +36,12 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String adminAcc(Model model) {
+    public String adminAcc(Model model, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User user = userService.getUserByName(userDetails.getUsername());
+        model.addAttribute("user", user);
         model.addAttribute("users", userService.getAllUsers());
+       // model.addAttribute("user", userService.getById(userDetails.getUsername());
         return "admin-info/admin";
     }
 
