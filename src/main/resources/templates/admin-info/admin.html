@@ -6,71 +6,6 @@
 
   <title>Admin panel</title>
 
-<!--  <style>-->
-<!--    #adminTable {-->
-<!--      font-family: Arial, sans-serif;-->
-<!--      border-collapse: collapse;-->
-<!--      width: 100%;-->
-<!--      margin: 20px 0;-->
-<!--    }-->
-
-<!--    #adminTable td, #adminTable th {-->
-<!--      border: 1px solid #ddd;-->
-<!--      padding: 8px;-->
-<!--    }-->
-
-<!--    #adminTable tr:nth-child(even) {-->
-<!--      background-color: #f2f2f2;-->
-<!--    }-->
-
-<!--    #adminTable tr:hover {-->
-<!--      background-color: #ddd;-->
-<!--    }-->
-
-<!--    #adminTable th {-->
-<!--      padding-top: 12px;-->
-<!--      padding-bottom: 12px;-->
-<!--      text-align: left;-->
-<!--      background-color: #4CAF50;-->
-<!--      color: white;-->
-<!--    }-->
-
-<!--    #addB {-->
-<!--      background-color: #4CAF50;-->
-<!--      border: none;-->
-<!--      color: white;-->
-<!--      padding: 15px 32px;-->
-<!--      text-align: center;-->
-<!--      text-decoration: none;-->
-<!--      display: inline-block;-->
-<!--      font-size: 16px;-->
-<!--      margin: 20px 0;-->
-<!--      cursor: pointer;-->
-<!--      border-radius: 5px;-->
-<!--    }-->
-
-<!--    #addB:hover {-->
-<!--      background-color: #3e8e41;-->
-<!--    }-->
-
-<!--    #logout {-->
-<!--      background-color: #f44336;-->
-<!--      color: white;-->
-<!--      border: none;-->
-<!--      padding: 15px 32px;-->
-<!--      text-align: center;-->
-<!--      text-decoration: none;-->
-<!--      display: inline-block;-->
-<!--      font-size: 16px;-->
-<!--      margin: 20px 0;-->
-<!--      cursor: pointer;-->
-<!--      border-radius: 5px;-->
-<!--    }-->
-
-<!--    #logout:hover {-->
-<!--      background-color: #e60000;-->
-<!--    }-->
-<!--  </style>-->
 
 
   <meta charset="utf-8">
@@ -115,7 +50,7 @@
   </div>
 </div>
 
-br>
+
 
 <!--Центральная панель с таблицей -->
 <div class="container-fluid">
@@ -125,10 +60,10 @@ br>
         <!--Боковая левая панель-->
         <div class="col-sm-2">
 
-          <a type="button" class="btn btn-block disabled btn-primary" href="/admin"
-          >Admin</a>
-          <a type="button" class="btn btn-block btn-outline-primary" href="/user"
-          >User</a>
+          <a type="button" class="btn btn-block disabled btn-primary" href="/admin" >Admin</a>
+          <a type="button" class="btn btn-block btn-outline-primary" href="/user"> User</a>
+
+
 
         </div>
         <!--Боковая левая панель конец-->
@@ -138,15 +73,16 @@ br>
           <h2> Admin panel </h2>
           <div class="tabbable" id="tabs-102915">
             <ul class="nav nav-tabs">
+
               <li class="nav-item">
-                <a class="nav-link" href="#tab1" data-toggle="tab" aria-expanded="false">Users
-                  table</a>
+                <a class="nav-link active" href="#tab1" data-toggle="tab">All users</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="#tab2" data-toggle="tab" aria-expanded="true">New
-                  user</a>
+                <a class="nav-link" href="#tab2" data-toggle="tab">New user</a>
               </li>
+
             </ul>
+
             <!--                            Начало клавишь All Users and Add new user-->
             <div class="tab-content">
               <div class="tab-pane" id="tab1">
