@@ -282,6 +282,7 @@ br>
                               <!--                                                            Начало Тело Модальной-->
                               <form th:method="DELETE" th:action= "@{/admin/{id}/delete(id=${user.id})}" th:object="${user}"  >
 
+
                                 <div class="form-group">
                                   <label class="row font-weight-bold justify-content-center" for="id">ID </label>
                                   <input th:name="id" th:type="text" class="form-control" th:value="${user.id}" id="id_delete" readonly/>
