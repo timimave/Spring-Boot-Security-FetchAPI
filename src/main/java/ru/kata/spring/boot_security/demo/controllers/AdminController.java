@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,11 +74,11 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PatchMapping(value = "/editUser/{getId}")
-    public String saveEditUser (@PathVariable Long getId,
+    @PutMapping(value = "/admin/{id}/editUser")
+    public String saveEditUser (@PathVariable Long id,
                                 @ModelAttribute("user") User user,
-                                @RequestParam(required = false, value = "roleIds") Long[] roleIds) {
-        userService.updateUserWithRoles(getId, user, roleIds);
+                                @RequestParam(required = false, value = "roles") Long[] roleIds) {
+        userService.updateUserWithRoles(id, user, roleIds);
         return "redirect:/admin";
     }
 

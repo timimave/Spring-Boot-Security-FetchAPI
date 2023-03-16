@@ -189,23 +189,36 @@ br>
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
+
                             <div class="modal-body">
 
                               <!--                                                            Начало Тело Модальной-->
                               <form th:method="PUT" th:action= "@{/admin/{id}/editUser(id=${user.id})}" th:object="${user}"  >
+
                                 <div class="form-group">
                                   <label class="row font-weight-bold justify-content-center" for="id">ID </label>
                                   <input th:name="id" th:type="text" class="form-control" th:value="${user.id}" id="id" readonly/>
                                 </div>
+
                                 <div class="form-group">
-                                  <label class="row font-weight-bold justify-content-center" for="name">Name </label>
+                                  <label class="row font-weight-bold justify-content-center" for="login">Login </label>
+                                  <input th:name="username" th:type="text" class="form-control" th:value="${user.username}" id="login"/>
+                                </div>
+
+                                <div class="form-group">
+                                  <label class="row font-weight-bold justify-content-center" for="name">Name</label>
                                   <input th:name="name" th:type="text" class="form-control" th:value="${user.name}" id="name"/>
                                 </div>
+
                                 <div class="form-group">
                                   <label class="row font-weight-bold justify-content-center" for="lastname">Last name</label>
                                   <input th:name="lastname" th:type="text" class="form-control" th:value="${user.lastname}" id="lastname"/>
                                 </div>
 
+                                <div class="form-group">
+                                  <label class="row font-weight-bold justify-content-center" for="personWhoStudiesJava">Is learning Java?</label>
+                                  <input th:name="personWhoStudiesJava" th:type="text" class="form-control" th:value="${user.personWhoStudiesJava}" id="personWhoStudiesJava"/>
+                                </div>
 
                                 <div class="form-group">
                                   <label class="row font-weight-bold justify-content-center" for="password">Password</label>
@@ -214,16 +227,25 @@ br>
 
 
 
-                                <label class="row font-weight-bold justify-content-center" for="roles">Role</label>
-                                <select multiple class="form-control" size="2"  id="roles" name="roles">
+                                <label class="row font-weight-bold justify-content-center" >Role</label>
 
-                                  <option
-                                      th:each="roles : ${roleList}"
-                                      th:text="${roles.getNoPrefix()}"
-                                      th:value = "${roles.id}"
-                                      th:selected="${user.roles.contains(roles)}"
-                                  > </option>
+<!--                                <select multiple class="form-control" size="2"  id="roles" name="roles">-->
 
+<!--                                  <option-->
+<!--                                      th:each="roles : ${roleList}"-->
+<!--                                      th:text="${roles.getNoPrefix()}"-->
+<!--                                      th:value = "${roles.id}"-->
+<!--                                      th:selected="${user.roles.contains(roles)}"-->
+<!--                                  > </option>-->
+<!--                                </select>-->
+
+                                <select multiple class="form-control" size="2" name="*{roles}" th:field="*{roles}">
+                                  <option th:each="role : ${roleList}"
+                                          th:value="${role.id}"
+                                          th:selected="${user.roles.contains(role)}"
+                                          th:text="${role.getNoPrefix()}">
+
+                                  </option>
                                 </select>
 
                                 <!--                                                                Конец тела окна-->
@@ -259,26 +281,38 @@ br>
 
                               <!--                                                            Начало Тело Модальной-->
                               <form th:method="DELETE" th:action= "@{/admin/{id}/delete(id=${user.id})}" th:object="${user}"  >
+
                                 <div class="form-group">
                                   <label class="row font-weight-bold justify-content-center" for="id">ID </label>
                                   <input th:name="id" th:type="text" class="form-control" th:value="${user.id}" id="id_delete" readonly/>
                                 </div>
+
+                                <div class="form-group">
+                                  <label class="row font-weight-bold justify-content-center" for="login">Login</label>
+                                  <input th:name="username" th:type="text" class="form-control" th:value="${user.username}" id="login_delete" readonly/>
+                                </div>
+
                                 <div class="form-group">
                                   <label class="row font-weight-bold justify-content-center" for="name">Name</label>
                                   <input th:name="name" th:type="text" class="form-control" th:value="${user.name}" id="name_delete" readonly/>
                                 </div>
+
                                 <div class="form-group">
                                   <label class="row font-weight-bold justify-content-center" for="lastname">Last name</label>
                                   <input th:name="lastname" th:type="text" class="form-control" th:value="${user.lastname}" id="lastname_delete" readonly/>
                                 </div>
 
+                                <div class="form-group">
+                                  <label class="row font-weight-bold justify-content-center" for="personWhoStudiesJava">Is learning Java?</label>
+                                  <input th:name="personWhoStudiesJava" th:type="text" class="form-control" th:value="${user.personWhoStudiesJava}" id="personWhoStudiesJava_delete" readonly/>
+                                </div>
 
                                 <div class="form-group">
                                   <label class="row font-weight-bold justify-content-center" for="password">Password</label>
                                   <input th:name="password" th:type="text" class="form-control" th:value="${user.password}" id="password_delete" readonly/>
                                 </div>
 
-                                <label class="row font-weight-bold justify-content-center" for="roles">Role</label>
+                                <label class="row font-weight-bold justify-content-center" >Role</label>
                                 <select multiple class="form-control" size="2"  id="roles_delete" name="roles" readonly>
 
                                   <option
@@ -308,28 +342,42 @@ br>
                 </table>
                 <!--Конец таблицы-->
               </div>
+
               <!-- Конец первой панели с таблицей All Users-->
               <!--Начало второй панели с add new Usera-->
+
               <div class="tab-pane active" id="tab2" aria-expanded="true">
-                <h4>Add new user</h4>
-                <!--  Начало Тело Модальной-->
-                <form th:method="POST" th:action= "@{/admin/newAddUserAdmin}" th:object="${user}"  >
+                  <h4>Add new user</h4>
+                                            <!--  Начало Тело Модальной-->
+                <form th:method="POST" th:action= "@{/addUser}" th:object="${user}">
 
                   <div class="container col-md-6">
                     <label class="row font-weight-bold justify-content-center" for="name">Name</label>
                     <input th:name="name" th:type="text" class="form-control" th:value="${name}" id="name_new_user" placeholder="Name"/>
                   </div>
+
                   <div class="container col-md-6">
                     <label class="row font-weight-bold justify-content-center" for="lastname">Last name</label>
-                    <input th:name="lastname" th:type="text" class="form-control" th:value="${lastname}" id="lastname_new_user" placeholder="Last name"/>
+                    <input th:name="lastname" th:type="text" class="form-control" th:value="${user.lastname}" id="lastname_new_user" placeholder="Last name"/>
+                  </div>
+
+                  <div class="container col-md-6">
+                    <label class="row font-weight-bold justify-content-center" for="login">Login</label>
+                    <input th:name="username" th:type="text" class="form-control" th:value="${user.username}" id="login_new_user" placeholder="Login"/>
+                  </div>
+
+                  <div class="container col-md-6">
+                    <label class="row font-weight-bold justify-content-center" for="personWhoStudiesJava">Is learning Java?</label>
+                    <input th:name="personWhoStudiesJava" th:type="text" class="form-control" th:value="${user.personWhoStudiesJava}" id="personWhoStudiesJava_new_user" placeholder="Is learning Java?"/>
                   </div>
 
                   <div class="container col-md-6">
                     <label class="row font-weight-bold justify-content-center" for="password">Password</label>
-                    <input th:name="password" th:type="text" class="form-control" th:value="${password}" id="password_new_user" placeholder="Password"/>
+                    <input th:name="password" th:type="text" class="form-control" th:value="${user.getPassword()}" id="password_new_user" placeholder="Password"/>
                   </div>
+
                   <div class="container col-md-6">
-                    <label class="row font-weight-bold justify-content-center" for="roles">Role</label>
+                    <label class="row font-weight-bold justify-content-center" >Role</label>
                     <select multiple class="form-control" size="2"  id="roles_new_user" name="roles">
 
                       <option
