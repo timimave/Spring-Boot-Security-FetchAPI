@@ -320,11 +320,27 @@
               <div class="tab-pane active" id="tab2" aria-expanded="true">
                   <h4>Add new user</h4>
                                             <!--  Начало Тело Модальной-->
-                <form th:method="POST" th:action= "@{/addUser}" th:object="${user}">
+                <form th:method="POST" th:action="@{/addUser}" th:object="${user}">
 
-                  <div class="container col-md-6">
-                    <label class="row font-weight-bold justify-content-center" for="name">Name</label>
-                    <label for="name_new_user"></label> <label for="name_new_user"></label>
+
+                  <!--                  <div class="container col-md-4">-->
+                  <!--                    <label class="row font-weight-bold justify-content-center" for="name">Name</label>-->
+
+                  <!--&lt;!&ndash;                    <label class="font-weight-bold justify-content-center" style="margin-top: 5px" for="name">Name</label>&ndash;&gt;-->
+                  <!--&lt;!&ndash;                    <label class="font-weight-bold d-flex justify-content-center" style="margin-top: 5px" for="name">Name</label>&ndash;&gt;-->
+                  <!--&lt;!&ndash;                    <label class="font-weight-bold d-flex align-items-center justify-content-center" style="height: 100%" for="name">Name</label>&ndash;&gt;-->
+
+                  <!--                    <label for="name_new_user"></label> <label for="name_new_user"></label>-->
+                  <!--                    <input th:name="name"-->
+                  <!--                           th:type="text"-->
+                  <!--                           class="form-control"-->
+                  <!--                           th:value="${name}"-->
+                  <!--                           id="name_new_user"-->
+                  <!--                           placeholder="Name"/>-->
+                  <!--                  </div>-->
+
+                  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+                    <label class="font-weight-bold" for="name">Name</label>
                     <input th:name="name"
                            th:type="text"
                            class="form-control"
@@ -334,17 +350,40 @@
                   </div>
 
 
-                  <div class="container col-md-6">
-                    <label class="row font-weight-bold justify-content-center" for="lastname">Last name</label>
-                    <label for="lastname_new_user"></label> <label for="lastname_new_user"></label>
-                    <input th:name="lastname" th:type="text" class="form-control"
-                           th:value="${user.lastname}" id="lastname_new_user"
+                  <!--                  <div class="container col-md-4">-->
+                  <!--&lt;!&ndash;                    <label class="row font-weight-bold justify-content-center" for="lastname">Last name</label>&ndash;&gt;-->
+                  <!--                    <label class="font-weight-bold justify-content-center" style="margin-top: 5px" for="lastname">Last name</label>-->
+
+                  <!--                    <label for="lastname_new_user"></label> <label for="lastname_new_user"></label>-->
+                  <!--                    <input th:name="lastname" th:type="text" class="form-control"-->
+                  <!--                           th:value="${user.lastname}" id="lastname_new_user"-->
+                  <!--                           placeholder="Last name"/>-->
+                  <!--                  </div>-->
+
+                  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+                    <label class="font-weight-bold" for="lastname">Last name</label>
+                    <input th:name="lastname"
+                           th:type="text"
+                           class="form-control"
+                           th:value="${user.lastname}"
+                           id="lastname_new_user"
                            placeholder="Last name"/>
                   </div>
 
-                  <div class="container col-md-6">
-                    <label class="row font-weight-bold justify-content-center" for="login">Login</label>
-                    <label for="login_new_user"></label><label for="login_new_user"></label>
+                  <!--                  <div class="container col-md-4">-->
+                  <!--&lt;!&ndash;                    <label class="row font-weight-bold justify-content-center" for="login">Login</label>&ndash;&gt;-->
+                  <!--                    <label class="font-weight-bold justify-content-center" style="margin-top: 5px" for="login">Login</label>-->
+                  <!--                    <label for="login_new_user"></label><label for="login_new_user"></label>-->
+                  <!--                    <input th:name="username"-->
+                  <!--                           th:type="text"-->
+                  <!--                           class="form-control"-->
+                  <!--                           th:value="${user.username}"-->
+                  <!--                           id="login_new_user"-->
+                  <!--                           placeholder="Login"/>-->
+                  <!--                  </div>-->
+
+                  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+                    <label class="font-weight-bold" for="login">Login</label>
                     <input th:name="username"
                            th:type="text"
                            class="form-control"
@@ -353,11 +392,23 @@
                            placeholder="Login"/>
                   </div>
 
-                  <div class="container col-md-6">
-                    <label class="row font-weight-bold justify-content-center" for="personWhoStudiesJava">Is learning
-                      Java?</label>
-                    <label for="personWhoStudiesJava_new_user"></label><label
-                      for="personWhoStudiesJava_new_user"></label>
+
+                  <!--                  <div class="container col-md-4">-->
+                  <!--&lt;!&ndash;                    <label class="row font-weight-bold justify-content-center" for="personWhoStudiesJava">Is learning&ndash;&gt;-->
+                  <!--&lt;!&ndash;                      Java?</label>&ndash;&gt;-->
+                  <!--                    <label class="font-weight-bold justify-content-center" style="margin-top: 5px" for="personWhoStudiesJava">Is learning Java?</label>-->
+                  <!--                    <label for="personWhoStudiesJava_new_user"></label><label-->
+                  <!--                      for="personWhoStudiesJava_new_user"></label>-->
+                  <!--                    <input th:name="personWhoStudiesJava" th:type="text"-->
+                  <!--                           class="form-control"-->
+                  <!--                           th:value="${user.personWhoStudiesJava}"-->
+                  <!--                           id="personWhoStudiesJava_new_user"-->
+                  <!--                           placeholder="Is learning Java?"/>-->
+                  <!--                  </div>-->
+
+
+                  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+                    <label class="font-weight-bold" for="personWhoStudiesJava">Is learning Java?</label>
                     <input th:name="personWhoStudiesJava" th:type="text"
                            class="form-control"
                            th:value="${user.personWhoStudiesJava}"
@@ -365,32 +416,46 @@
                            placeholder="Is learning Java?"/>
                   </div>
 
-                  <div class="container col-md-6">
-                    <label class="row font-weight-bold justify-content-center" for="password">Password</label>
-                    <label for="password_new_user"></label><label for="password_new_user"></label><input
-                      th:name="password" th:type="password" class="form-control" th:value="${user.getPassword()}"
-                      id="password_new_user" placeholder="Password"/>
+                  <!--                  <div class="container col-md-4">-->
+                  <!--                    <label class="row font-weight-bold justify-content-center" for="password">Password</label>-->
+                  <!--                    <label for="password_new_user"></label><label for="password_new_user"></label><input-->
+                  <!--                      th:name="password" th:type="password" class="form-control" th:value="${user.getPassword()}"-->
+                  <!--                      id="password_new_user" placeholder="Password"/>-->
+                  <!--                  </div>-->
+
+                  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+                    <label class="font-weight-bold" for="password">Password</label>
+                    <input th:name="password" th:type="password" class="form-control" th:value="${user.getPassword()}"
+                           id="password_new_user" placeholder="Password"/>
                   </div>
 
-                  <div class="container col-md-6">
-                    <label class="row font-weight-bold justify-content-center">Role</label>
-                    <label for="roles_new_user"></label><label for="roles_new_user"></label><select multiple
-                                                                                                    class="form-control"
-                                                                                                    size="2"
-                                                                                                    id="roles_new_user"
-                                                                                                    name="roles">
+                  <!--                  <div class="container col-md-4">-->
+                  <!--                    <label class="row font-weight-bold justify-content-center">Role</label>-->
+                  <!--                    <label for="roles_new_user"></label><label for="roles_new_user"></label><select multiple-->
+                  <!--                                                                                                    class="form-control"-->
+                  <!--                                                                                                    size="2"-->
+                  <!--                                                                                                    id="roles_new_user"-->
+                  <!--                                                                                                    name="roles">-->
 
-                    <option
-                        th:each="roles : ${roleList}"
-                        th:text="${roles.getNoPrefix()}"
-                        th:value="${roles.id}"
-                        th:selected="${user.roles.contains(roles)}"
-                    ></option>
-                  </select>
+                  <!--                    <option-->
+                  <!--                        th:each="roles : ${roleList}"-->
+                  <!--                        th:text="${roles.getNoPrefix()}"-->
+                  <!--                        th:value="${roles.id}"-->
+                  <!--                        th:selected="${user.roles.contains(roles)}"-->
+                  <!--                    ></option>-->
+                  <!--                  </select>-->
+                  <!--                  </div>-->
+
+                  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+                    <label class="font-weight-bold" for="roles_new_user">Role</label>
+                    <select multiple class="form-control" size="2" id="roles_new_user" name="roles">
+                      <option th:each="roles : ${roleList}" th:text="${roles.getNoPrefix()}"
+                              th:value="${roles.id}" th:selected="${user.roles.contains(roles)}"></option>
+                    </select>
                   </div>
 
                   <br>
-                  <div class="container text-center col-md-6">
+                  <div class="container text-center col-md-4">
 
                     <button type="submit" class="btn btn-success btn-lg">Add new user</button>
                   </div>
