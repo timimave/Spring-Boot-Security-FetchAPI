@@ -52,13 +52,21 @@
     <div class="col-sm-12">
       <div class="row">
         <!--Боковая левая панель-->
+<!--        <div class="col-sm-2">-->
+
+<!--&lt;!&ndash;          <a type="button" class="btn btn-block btn-primary" href="/admin">Admin</a>&ndash;&gt;-->
+
+<!--          <a type="button" class="btn btn-block disabled btn-outline-primary"href="/user">User</a>-->
+
+<!--        </div>-->
+
         <div class="col-sm-2">
-
-          <a type="button" class="btn btn-block btn-primary" href="/admin">Admin</a>
-
-          <a type="button" class="btn btn-block disabled btn-outline-primary"href="/user">User</a>
-
+          <a type="button" class="btn btn-block disabled btn-outline-primary" href="/user">User</a>
+          <span th:if="${param.from == 'admin'}">
+        <a type="button" class="btn btn-block disabled btn-outline-primary" href="/admin">Admin</a>
+    </span>
         </div>
+
         <!--Боковая левая панель конец-->
 
         <!--Боковая правая панель начало-->
