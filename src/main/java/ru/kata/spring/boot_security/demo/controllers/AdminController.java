@@ -56,7 +56,7 @@ public class AdminController {
         model.addAttribute("user", user);
         model.addAttribute("roleList", roleList);
         model.addAttribute("roles", roles);
-        return "/CRUD/editUser";
+        return "redirect:/admin";
     }
 
     @GetMapping(value = "/addUser")
@@ -66,7 +66,7 @@ public class AdminController {
         model.addAttribute("user", new User());
         model.addAttribute("roleList",
             roleService.getAllRoles());
-        return "/CRUD/addUser";
+        return "redirect:/admin";
     }
 
     @DeleteMapping(value = "/admin/{id}/delete")
