@@ -103,8 +103,15 @@
       margin-top: -1220px;
     }
 
+    /*.modal-dialog {*/
+    /*  margin: 0 auto;*/
+    /*  max-width: 800px;*/
+    /*}*/
 
-
+    .modal-dialog {
+      max-width: 500px;
+      width: 100%;
+    }
 
   </style>
 
@@ -166,11 +173,11 @@
                 <a class="nav-link" href="#tab2" data-toggle="tab">New user</a>
               </li>
 
-              <script>
-                function removeClassActive() {
-                  document.querySelector('.nav-link.active').classList.remove('active');
-                }
-              </script>
+<!--              <script>-->
+<!--                function removeClassActive() {-->
+<!--                  document.querySelector('.nav-link.active').classList.remove('active');-->
+<!--                }-->
+<!--              </script>-->
 
             </ul>
 
@@ -222,33 +229,40 @@
                               <!--                                                            Начало Тело Модальной-->
                               <form th:method="PUT" th:action= "@{/admin/{id}/editUser(id=${user.id})}" th:object="${user}"  >
 
-                                <div class="form-group">
-                                  <label class="row font-weight-bold justify-content-center" for="id">ID </label>
+<!--                                <div class="form-group">-->
+<!--&lt;!&ndash;                                  <label class="row font-weight-bold justify-content-center" for="id">ID </label>&ndash;&gt;-->
+<!--                                  <label class="row font-weight-bold justify-content-end center" for="id">ID </label>-->
+<!--                                  <input th:name="id" th:type="text" class="form-control" th:value="${user.id}" id="id" readonly/>-->
+<!--                                </div>-->
+
+                                <div class="form-group text-center">
+                                  <label class="font-weight-bold justify-content-end" for="id">ID </label>
                                   <input th:name="id" th:type="text" class="form-control" th:value="${user.id}" id="id" readonly/>
                                 </div>
 
-                                <div class="form-group">
-                                  <label class="row font-weight-bold justify-content-center" for="login">Login </label>
+
+                                <div class="form-group text-center">
+                                  <label class="font-weight-bold justify-content-end" for="login">Login </label>
                                   <input th:name="username" th:type="text" class="form-control" th:value="${user.username}" id="login"/>
                                 </div>
 
-                                <div class="form-group">
-                                  <label class="row font-weight-bold justify-content-center" for="name">Name</label>
+                                <div class="form-group text-center">
+                                  <label class="font-weight-bold justify-content-end" for="name">Name</label>
                                   <input th:name="name" th:type="text" class="form-control" th:value="${user.name}" id="name"/>
                                 </div>
 
-                                <div class="form-group">
-                                  <label class="row font-weight-bold justify-content-center" for="lastname">Last name</label>
+                                <div class="form-group text-center">
+                                  <label class="font-weight-bold justify-content-end" for="lastname">Last name</label>
                                   <input th:name="lastname" th:type="text" class="form-control" th:value="${user.lastname}" id="lastname"/>
                                 </div>
 
-                                <div class="form-group">
-                                  <label class="row font-weight-bold justify-content-center" for="personWhoStudiesJava">Is learning Java?</label>
+                                <div class="form-group text-center">
+                                  <label class="font-weight-bold justify-content-end" for="personWhoStudiesJava">Is learning Java?</label>
                                   <input th:name="personWhoStudiesJava" th:type="text" class="form-control" th:value="${user.personWhoStudiesJava}" id="personWhoStudiesJava"/>
                                 </div>
 
-                                <div class="form-group">
-                                  <label class="row font-weight-bold justify-content-center" for="password">Password</label>
+                                <div class="form-group text-center">
+                                  <label class="font-weight-bold justify-content-end" for="password">Password</label>
                                   <input th:name="password" th:type="text" class="form-control" th:value="${user.password}" id="password"/>
                                 </div>
 
@@ -256,15 +270,6 @@
 
                                 <label class="row font-weight-bold justify-content-center" >Role</label>
 
-                                <!--                                <select multiple class="form-control" size="2"  id="roles" name="roles">-->
-
-                                <!--                                  <option-->
-                                <!--                                      th:each="roles : ${roleList}"-->
-                                <!--                                      th:text="${roles.getNoPrefix()}"-->
-                                <!--                                      th:value = "${roles.id}"-->
-                                <!--                                      th:selected="${user.roles.contains(roles)}"-->
-                                <!--                                  > </option>-->
-                                <!--                                </select>-->
 
                                 <label>
                                   <select multiple class="form-control" size="2" name="*{roles}" th:field="*{roles}">
