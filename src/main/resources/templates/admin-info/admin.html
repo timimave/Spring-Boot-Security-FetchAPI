@@ -213,7 +213,7 @@
                            data-toggle="modal">Edit</a>
                       </td>
 
-                      <!--Начало Модальное окно изменения пользователя-->
+                                                <!--Начало Модальное окно изменения пользователя-->
                       <div class="modal fade"  th:id="${'editUser'+ user.id}"  tabindex="-1" role="dialog"  aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                           <div class="modal-content">
@@ -226,14 +226,8 @@
 
                             <div class="modal-body">
 
-                              <!--                                                            Начало Тело Модальной-->
-                              <form th:method="PUT" th:action= "@{/admin/{id}/editUser(id=${user.id})}" th:object="${user}"  >
-
-<!--                                <div class="form-group">-->
-<!--&lt;!&ndash;                                  <label class="row font-weight-bold justify-content-center" for="id">ID </label>&ndash;&gt;-->
-<!--                                  <label class="row font-weight-bold justify-content-end center" for="id">ID </label>-->
-<!--                                  <input th:name="id" th:type="text" class="form-control" th:value="${user.id}" id="id" readonly/>-->
-<!--                                </div>-->
+                                                   <!--         Начало Тело Модальной-->
+                              <form th:method="PUT" th:action= "@{/admin/{id}/editUser(id=${user.id})}" th:object="${user}" >
 
                                 <div class="form-group text-center">
                                   <label class="font-weight-bold justify-content-end" for="id">ID </label>
@@ -282,7 +276,7 @@
                                   </select>
                                 </label>
 
-                                <!--                                                                Конец тела окна-->
+                                                              <!-- Конец тела окна-->
 
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -295,12 +289,13 @@
                         </div>
                       </div>
                       <!--Конец Модальное окно изменения пользователя-->
-                      <!--                                            Начало кнопки удаления Usera в таблице-->
+                      <!--                                            Начало кнопки удаления User`a в таблице-->
                       <td>
                         <a type="button" class="btn btn-danger" th:href="${'#delete' + user.id}"
                            data-toggle="modal">Delete</a>
                       </td>
-                      <!--                                            Конец кнопки удаления Usera в таблице-->
+                      <!--          Конец кнопки удаления User`a в таблице-->
+
                       <!--Начало Модальное окно удаления пользователя-->
                       <div class="modal fade"  th:id="${'delete'+ user.id}"  tabindex="-1" role="dialog"  aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -313,7 +308,7 @@
                             </div>
                             <div class="modal-body">
 
-                              <!--                                                            Начало Тело Модальной-->
+                              <!--                          Начало Тело Модальной-->
                               <form th:method="DELETE" th:action= "@{/admin/{id}/delete(id=${user.id})}" th:object="${user}"  >
 
 
@@ -413,40 +408,45 @@
 
                   <div class="container col-md-6">
                     <label class="row font-weight-bold justify-content-center" for="name">Name</label>
-                    <label for="name_new_user"></label><label for="name_new_user"></label><input th:name="name"
-                                                                                                 th:type="text"
-                                                                                                 class="form-control"
-                                                                                                 th:value="${name}"
-                                                                                                 id="name_new_user"
-                                                                                                 placeholder="Name"/>
+                    <label for="name_new_user"></label> <label for="name_new_user"></label>
+                    <input th:name="name"
+                           th:type="text"
+                           class="form-control"
+                           th:value="${name}"
+                           id="name_new_user"
+                           placeholder="Name"/>
                   </div>
+
 
                   <div class="container col-md-6">
                     <label class="row font-weight-bold justify-content-center" for="lastname">Last name</label>
-                    <label for="lastname_new_user"></label><input th:name="lastname" th:type="text" class="form-control"
-                                                                  th:value="${user.lastname}" id="lastname_new_user"
-                                                                  placeholder="Last name"/>
+                    <label for="lastname_new_user"></label> <label for="lastname_new_user"></label>
+                    <input th:name="lastname" th:type="text" class="form-control"
+                           th:value="${user.lastname}" id="lastname_new_user"
+                           placeholder="Last name"/>
                   </div>
 
                   <div class="container col-md-6">
                     <label class="row font-weight-bold justify-content-center" for="login">Login</label>
-                    <label for="login_new_user"></label><label for="login_new_user"></label><input th:name="username"
-                                                                                                   th:type="text"
-                                                                                                   class="form-control"
-                                                                                                   th:value="${user.username}"
-                                                                                                   id="login_new_user"
-                                                                                                   placeholder="Login"/>
+                    <label for="login_new_user"></label><label for="login_new_user"></label>
+                    <input th:name="username"
+                           th:type="text"
+                           class="form-control"
+                           th:value="${user.username}"
+                           id="login_new_user"
+                           placeholder="Login"/>
                   </div>
 
                   <div class="container col-md-6">
                     <label class="row font-weight-bold justify-content-center" for="personWhoStudiesJava">Is learning
                       Java?</label>
                     <label for="personWhoStudiesJava_new_user"></label><label
-                      for="personWhoStudiesJava_new_user"></label><input th:name="personWhoStudiesJava" th:type="text"
-                                                                         class="form-control"
-                                                                         th:value="${user.personWhoStudiesJava}"
-                                                                         id="personWhoStudiesJava_new_user"
-                                                                         placeholder="Is learning Java?"/>
+                      for="personWhoStudiesJava_new_user"></label>
+                    <input th:name="personWhoStudiesJava" th:type="text"
+                           class="form-control"
+                           th:value="${user.personWhoStudiesJava}"
+                           id="personWhoStudiesJava_new_user"
+                           placeholder="Is learning Java?"/>
                   </div>
 
                   <div class="container col-md-6">
@@ -523,6 +523,17 @@
     document.querySelector('.nav-link[href="#tab1"]').classList.add('active');
     document.querySelector('.tab-pane.active').classList.remove('active');
     document.querySelector('.tab-pane[id="tab1"]').classList.add('active');
+  });
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    document.getElementById("name_new_user").value = "";
+    document.getElementById("lastname_new_user").value = "";
+    document.getElementById("login_new_user").value = "";
+    document.getElementById("personWhoStudiesJava_new_user").value = "";
+    document.getElementById("password_new_user").value = "";
   });
 </script>
 
