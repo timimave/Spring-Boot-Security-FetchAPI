@@ -60,11 +60,25 @@
 
 <!--        </div>-->
 
+<!--        <div class="col-sm-2">-->
+<!--          <a type="button" class="btn btn-block disabled btn-outline-primary" href="/user">User</a>-->
+<!--          <span th:if="${param.from == 'admin'}">-->
+<!--        <a type="button" class="btn btn-block disabled btn-outline-primary" href="/admin">Admin</a>-->
+<!--    </span>-->
+<!--        </div>-->
+
+<!--        <div class="col-sm-2">-->
+<!--          <a type="button" class="btn btn-block disabled btn-outline-primary" href="/user">User</a>-->
+<!--          <span th:if="${param.from == 'admin'}">-->
+<!--    <a type="button" class="btn btn-block btn-outline-primary" href="/admin">Admin</a>-->
+<!--  </span>-->
+<!--        </div>-->
+
         <div class="col-sm-2">
           <a type="button" class="btn btn-block disabled btn-outline-primary" href="/user">User</a>
-          <span th:if="${param.from == 'admin'}">
-        <a type="button" class="btn btn-block disabled btn-outline-primary" href="/admin">Admin</a>
-    </span>
+  <span th:if="${user.getRoles() == 'ROLE_ADMIN'}">
+    <a type="button" class="btn btn-block btn-outline-primary" href="/admin">Admin</a>
+  </span>
         </div>
 
         <!--Боковая левая панель конец-->
