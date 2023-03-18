@@ -2,14 +2,12 @@ package ru.kata.spring.boot_security.demo.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
@@ -36,15 +34,4 @@ public class UserController {
         return "userinfo/user";
 
     }
-
-
-
 }
-
-//@GetMapping("/admin")
-//public String adminAccount(Model model, Authentication authentication, RedirectAttributes redirectAttributes) {
-//    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//    User user = userService.getUserByName(userDetails.getUsername());
-//    redirectAttributes.addAttribute("from", "admin");
-//    return "redirect:/user";
-//}
