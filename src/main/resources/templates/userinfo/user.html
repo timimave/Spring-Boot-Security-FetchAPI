@@ -54,17 +54,13 @@
         <!--Боковая левая панель-->
 
         <div class="col-sm-2">
-          <a type="button" class="btn btn-block disabled btn-outline-primary" href="/user">User</a>
-          <span th:if="${#strings.contains(user.getRoles(), 'ROLE_ADMIN')}">
-    <a type="button" class="btn btn-block btn-outline-primary" href="/admin">Admin</a>
-</span>
-          <span th:if="${#strings.contains(user.getRoles(), 'ROLE_USER')}">
-    <a type="button" class="btn btn-block btn-outline-primary" href="/user">User</a>
-</span>
+    <span th:if="${#strings.contains(user.getRoles(), 'ROLE_ADMIN')}">
+        <a type="button" class="btn btn-block btn-outline-primary" href="/admin" th:classappend="${#strings.contains(user.getRoles(), 'ROLE_USER')} ? 'mr-1' : ''">Admin</a>
+    </span>
+          <span th:if="${!#strings.contains(user.getRoles(), 'ROLE_ADMIN')}">
+        <a type="button" class="btn btn-block btn-outline-primary" href="/user" style="opacity: 0.5; pointer-events: none;">User</a>
+    </span>
         </div>
-
-
-
 
         <!--Боковая левая панель конец-->
 
