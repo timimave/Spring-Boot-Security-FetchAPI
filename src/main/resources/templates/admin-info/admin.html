@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" >
+
+
+
 <head>
   <meta charset="UTF-8"/>
 
@@ -21,6 +25,9 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+
+
+
 
   <style>
 
@@ -63,26 +70,29 @@
     <div class="col-sm-12">
       <div class="row">
         <!--Боковая левая панель-->
+
+
 <!--        <div class="col-sm-2" style="margin-top: 24px;">-->
-
-<!--          <a type="button" class="btn btn-block disabled btn-primary" href="/admin" >Admin</a>-->
-
-
-<!--          <a type="button" class="btn btn-block btn-outline-primary" href="/user"> User</a>-->
-
-
-
+<!--          <a type="button" class="btn btn-block btn-primary" href="/admin">Admin</a>-->
+<!--          <a type="button" class="btn btn-block btn-outline-primary" href="/user?from=admin">User</a>-->
 <!--        </div>-->
 
 <!--        <div class="col-sm-2" style="margin-top: 24px;">-->
-<!--          <a type="button" class="btn btn-block disabled btn-primary" href="/admin" >Admin</a>-->
-<!--          <a type="button" class="btn btn-block btn-outline-primary" href="/user?from=admin"> User</a>-->
+<!--          <a th:if="${param.from != 'admin'}" type="button" class="btn btn-block btn-primary" href="/admin">Admin</a>-->
+<!--          <a th:if="${param.from == 'admin'}" type="button" class="btn btn-block btn-outline-primary" href="/user?from=admin">User</a>-->
+<!--        </div>-->
+
+<!--        <div class="col-sm-2" style="margin-top: 24px;">-->
+<!--          <a type="button" class="btn btn-block btn-primary" href="/admin">Admin</a>-->
+<!--          <a th:if="${param.from == 'admin'}" type="button" class="btn btn-block btn-outline-primary" href="/user?from=admin">User</a>-->
 <!--        </div>-->
 
         <div class="col-sm-2" style="margin-top: 24px;">
-          <a type="button" class="btn btn-block btn-primary" href="/admin">Admin</a>
+          <a type="button" class="btn btn-block btn-outline-primary" href="/admin">Admin</a>
           <a type="button" class="btn btn-block btn-outline-primary" href="/user?from=admin">User</a>
         </div>
+
+
 
         <!--Боковая левая панель конец-->
 
