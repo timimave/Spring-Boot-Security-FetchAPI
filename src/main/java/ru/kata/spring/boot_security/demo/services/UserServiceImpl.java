@@ -4,7 +4,6 @@ package ru.kata.spring.boot_security.demo.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,23 +12,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder cryptPasswordEncoder;
     private final RoleService roleService;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository,
-        RoleRepository roleRepository,
-        BCryptPasswordEncoder cryptPasswordEncoder, RoleService roleService) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder cryptPasswordEncoder,
+        RoleService roleService) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.cryptPasswordEncoder = cryptPasswordEncoder;
         this.roleService = roleService;
     }
@@ -41,8 +35,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new org.springframework.security.core.userdetails.User
-            (user.getUsername(), user.getPassword(), user.getAuthorities());
+        return user;
     }
 
     @Override
