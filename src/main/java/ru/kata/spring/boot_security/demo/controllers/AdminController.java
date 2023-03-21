@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.controllers;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +34,6 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-
     @GetMapping("/admin")
     public String adminAcc(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -42,6 +43,13 @@ public class AdminController {
         model.addAttribute("users", userService.getAllUsers());
         return "admin-info/admin";
     }
+
+//    @GetMapping("/admin")
+//    public ResponseEntity<User> adminAcc(Authentication authentication) {
+//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//        User user = userService.getUserByName(userDetails.getUsername());
+//        return ResponseEntity.ok(user);
+//    }
 
     @RequestMapping(value = "/editUser/{id}", method = RequestMethod.GET)
     public String editUser(@PathVariable Long id, Model model) {
@@ -77,6 +85,15 @@ public class AdminController {
         userService.updateUserWithRoles(id, user, roleIds);
         return "redirect:/admin";
     }
+
+//    @PutMapping(value = "/admin/{id}/editUser")
+//    public ResponseEntity<Void> saveEditUser (@PathVariable Long id,
+//                                              @RequestBody User user,
+//                                              @RequestParam(required = false, value = "roles") Long[] roleIds) {
+//        userService.updateUserWithRoles(id, user, roleIds);
+//        return ResponseEntity.noContent().build();
+//    }
+//    //   @PutMapping("/{id}/editUser")
 
     @PostMapping(value = "/addUser")
     public String saveUser(@ModelAttribute("user") User user) {

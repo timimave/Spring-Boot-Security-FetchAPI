@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>LogIn</th>
+    <th>Name</th>
+    <th>LastName</th>
+    <th>Is learning Java?</th>
+    <th>Role</th>
+  </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<script>
+  // Выполняем GET запрос на сервер и получаем список пользователей
+  fetch('/api/users')
+  .then(response => response.json())
+  .then(users => {
+    // Получаем tbody таблицы
+    const tbody = document.querySelector('tbody');
+
+    // Заполняем таблицу данными
+    users.forEach(user => {
+      const tr = document.createElement('tr');
+      const idTd = document.createElement('td');
+      const loginTd = document.createElement('td');
+      const nameTd = document.createElement('td');
+      const lastNameTd = document.createElement('td');
+     const javaLearningTd = document.createElement('td');
+      const roleTd = document.createElement('td');
+
+      idTd.textContent = user.id;
+      loginTd.textContent = user.username;
+      nameTd.textContent = user.name;
+      lastNameTd.textContent = user.lastname;
+      javaLearningTd.textContent = user.isPersonStudyingJava === 'y' ? 'Yes' : 'No';
+      roleTd.textContent = user.roles.map(role => role.role).join(', ');
+
+      tr.appendChild(idTd);
+      tr.appendChild(loginTd);
+      tr.appendChild(nameTd);
+      tr.appendChild(lastNameTd);
+      tr.appendChild(javaLearningTd);
+      tr.appendChild(roleTd);
+
+      tbody.appendChild(tr);
+    });
+  });
+</script>
+
+</body>
+</html>
