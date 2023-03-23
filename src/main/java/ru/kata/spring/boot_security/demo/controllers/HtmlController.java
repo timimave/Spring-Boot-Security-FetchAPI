@@ -5,12 +5,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HtmlController {
-    @GetMapping("/getAllUsers.html")
-    public String getAllUsers() {
-        return "getAllUsers"; // getAllUsers - это имя  HTML файла без расширения .html
-    }
-    @GetMapping("/user.html")
-    public String getUser() {
-        return "user-info";
-    }
+
+//    @GetMapping("/admin")
+//    public String getUser() {
+//        return "admin-info/admin"; // getUser -
+//    }
 }
+
+
+/* @GetMapping("/test2.html")
+    public String getAllUsers() {
+        return "test2"; // getAllUsers - это имя  HTML файла без расширения .html
+    }*/

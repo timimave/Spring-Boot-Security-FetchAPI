@@ -44,12 +44,6 @@ public class AdminController {
         return "admin-info/admin";
     }
 
-//    @GetMapping("/admin")
-//    public ResponseEntity<User> adminAcc(Authentication authentication) {
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//        User user = userService.getUserByName(userDetails.getUsername());
-//        return ResponseEntity.ok(user);
-//    }
 
     @RequestMapping(value = "/editUser/{id}", method = RequestMethod.GET)
     public String editUser(@PathVariable Long id, Model model) {
@@ -85,15 +79,6 @@ public class AdminController {
         userService.updateUserWithRoles(id, user, roleIds);
         return "redirect:/admin";
     }
-
-//    @PutMapping(value = "/admin/{id}/editUser")
-//    public ResponseEntity<Void> saveEditUser (@PathVariable Long id,
-//                                              @RequestBody User user,
-//                                              @RequestParam(required = false, value = "roles") Long[] roleIds) {
-//        userService.updateUserWithRoles(id, user, roleIds);
-//        return ResponseEntity.noContent().build();
-//    }
-//    //   @PutMapping("/{id}/editUser")
 
     @PostMapping(value = "/addUser")
     public String saveUser(@ModelAttribute("user") User user) {

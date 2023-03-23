@@ -142,7 +142,7 @@
     });
   }
   // Получение данных с сервера и заполнение таблицы
-  fetch('/api/admin')
+  fetch('/adminPanel')
   .then(response => response.json())
   .then(users => fillUsersTable(users))
   .catch(error => console.error('Ошибка при получении данных с сервера', error));

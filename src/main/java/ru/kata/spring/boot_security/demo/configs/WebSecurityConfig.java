@@ -26,7 +26,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userService = userService;
     }
 
-
     @Bean
     public PasswordEncoder  passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -49,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .formLogin()
             .successHandler(new SuccessUserHandler())
+            .defaultSuccessUrl("/admin")
             .permitAll()
             .and()
             .logout()
