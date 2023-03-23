@@ -32,7 +32,7 @@ public class RestAdminController {
 
 
 
-////    @PutMapping(value = "/api/{id}/editUser")
+////    @PutMapping(value = "{id}/editUser")
 ////    public ResponseEntity<User>saveEditUser (@PathVariable Long id,
 ////                                @ModelAttribute("user") User user,
 ////                                @RequestParam(required = false, value = "roles") Long[] roleIds) {

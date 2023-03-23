@@ -1,3 +1,4 @@
+<!-- Скрипт для заполнения таблицы данными с сервера -->
 
 function fillUsersTable(users) {
   const tbody = document.querySelector('tbody');
