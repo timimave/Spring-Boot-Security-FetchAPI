@@ -11,14 +11,18 @@
 
   <title>Hello, world!</title>
 </head>
-<body>
+
+<!--данные роли текущего пользователя-->
+<body data-user-role="user">
 
 
+
+<!--  фрагмент шапки-->
 <div th:replace="fragments/header :: headerFragment"></div>
 
-<!--<h1>Hello, world!</h1>-->
-
 <div class="row">
+
+
   <div class="col-2">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
       <a class="nav-link active" id="v-pills-admin-tab" data-toggle="pill" href="#v-pills-admin" role="tab"
@@ -27,6 +31,8 @@
          aria-controls="v-pills-user" aria-selected="false">User</a>
     </div>
   </div>
+
+
   <div class="col-10">
     <div class="tab-content" id="v-pills-tabContent">
       <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -40,8 +46,6 @@
           <li class="nav-item">
             <a class="nav-link" id="new-user-tab" data-toggle="tab" href="#new-user" role="tab" aria-controls="new-user"
                aria-selected="false">New user</a>
-
-
           </li>
         </ul>
 
@@ -50,17 +54,15 @@
           <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
             <div class="w-auto p-3 border bg-light clearfix">
 
-              <!----тут---users table-->
+              <!-----фрагмент-users table-->
               <div th:replace="fragments/users-table :: users-table"></div>
 
             </div>
           </div>
           <div class="tab-pane fade" id="new-user" role="tabpanel" aria-labelledby="new-user-tab">New user form
 
-            <!----tut-new user form--->
-
+            <!-----фрагмент--new user form--->
             <div th:replace="fragments/newUserForm :: newUserFormFragment"></div>
-
 
           </div>
         </div>
@@ -71,8 +73,26 @@
   </div>
 </div>
 
-
+<!--скрипт для отображения пользователей-->
 <script src="/static/js/main.js" > </script>
+
+<!--<script src="/static/js/addNewUserForm.js" > </script>-->
+
+
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", function() {-->
+<!--    var userRole = document.body.dataset.userRole;-->
+
+<!--    if (userRole === "User") {-->
+<!--    document.getElementById("v-pills-admin-tab").style.display = "none";-->
+<!--  } else if (userRole === "Admin") {-->
+<!--    document.getElementById("v-pills-admin-tab").style.display = "block";-->
+<!--  } else {-->
+<!--    console.error("Неизвестная роль пользователя:", userRole);-->
+<!--  }-->
+<!--  });-->
+<!--</script>-->
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

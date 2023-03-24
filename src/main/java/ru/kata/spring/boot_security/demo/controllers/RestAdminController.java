@@ -1,7 +1,15 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import java.util.List;
+import javax.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -23,21 +31,10 @@ public class RestAdminController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
+    @PostMapping("/api/add")
+    public ResponseEntity<?> addUser(@RequestBody User user) {
+        userService.addUser(user);
+        return ResponseEntity.ok().build();
+    }
 }
-
-
-
-
-
-
-
-
-////    @PutMapping(value = "{id}/editUser")
-////    public ResponseEntity<User>saveEditUser (@PathVariable Long id,
-////                                @ModelAttribute("user") User user,
-////                                @RequestParam(required = false, value = "roles") Long[] roleIds) {
-////        userService.updateUserWithRoles(id, user, roleIds);
-////
-////        return new ResponseEntity<>(user, HttpStatus.OK);
-////
-////    }

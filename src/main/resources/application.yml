@@ -6,3 +6,7 @@ spring:
       resources:
         static:
           locations: classpath:/static/
+
+          server:
+            error:
+              path: /error

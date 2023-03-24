@@ -66,3 +66,4 @@ fetch('/api/admin')
 .then(response => response.json())
 .then(users => fillUsersTable(users))
 .catch(error => console.error('Ошибка при получении данных с сервера', error));
+

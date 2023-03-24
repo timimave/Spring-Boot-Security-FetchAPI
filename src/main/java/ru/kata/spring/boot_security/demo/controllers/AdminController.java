@@ -33,6 +33,13 @@ public class AdminController {
         this.userService = userService;
         this.roleService = roleService;
     }
+//    @GetMapping("/")
+//    public String index(Model model) {
+//        User user = userService.getById(id);
+//        Set<Role> roles = user.getRoles();
+//        model.addAttribute("userRole", roles);
+//        return "admin-info/admin";
+//    }
 
     @GetMapping("/admin")
     public String adminAcc(Model model, Authentication authentication) {
@@ -41,7 +48,7 @@ public class AdminController {
         model.addAttribute("user", user);
         model.addAttribute("roleList",roleService.getAllRoles());
         model.addAttribute("users", userService.getAllUsers());
-        return "admin-info/admin";
+        return "main/main";
     }
 
 
@@ -56,15 +63,14 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "/addUser")
-    public String addUser(Model model) {
-        User user = new User();
-        user.setRoles(new HashSet<>());
-        model.addAttribute("user", new User());
-        model.addAttribute("roleList",
-            roleService.getAllRoles());
-        return "redirect:/admin";
-    }
+//    @GetMapping(value = "/addUser")
+//    public String addUser(Model model) {
+//        User user = new User();
+//        user.setRoles(new HashSet<>());
+//        model.addAttribute("user", new User());
+//        model.addAttribute("roleList", roleService.getAllRoles());
+//        return "redirect:/admin";
+//    }
 
     @DeleteMapping(value = "/admin/{id}/delete")
     public String deleteUser(@PathVariable Long id) {

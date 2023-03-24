@@ -31,7 +31,8 @@ public class UserController {
         User user = userService.getUserByName(userDetails.getUsername());
         model.addAttribute("user", user);
         redirectAttributes.addAttribute("from", "admin");
-        return "userinfo/user";
+        return "userinfo/user-info";
 
     }
+
 }

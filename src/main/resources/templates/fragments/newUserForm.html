@@ -1,56 +1,59 @@
 
-
 <div th:fragment="newUserFormFragment">
-<form th:method="POST" th:action="@{/addUser}" th:object="${user}">
+  <form th:method="POST" th:action="@{/addUser}" id="newUserForm">
 
 
-  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
-    <label class="font-weight-bold" for="name">Name</label>
-    <input th:name="name"
-           th:type="text"
-           class="form-control"
-           th:value="${name}"
-           id="name_new_user"
+    <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+      <label class="font-weight-bold" for=>Name</label>
+      <input th:name="name"
+             th:type="text"
+             class="form-control"
+             th:value="${name}"
+             id="name_new_user"
            placeholder="Name"/>
   </div>
 
 
   <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
-    <label class="font-weight-bold" for="lastname">Last name</label>
+    <label class="font-weight-bold" for=>Last name</label>
     <input th:name="lastname"
            th:type="text"
            class="form-control"
-           th:value="${user.lastname}"
+           th:value="${lastname}"
            id="lastname_new_user"
            placeholder="Last name"/>
   </div>
 
 
   <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
-    <label class="font-weight-bold" for="login">Login</label>
+    <label class="font-weight-bold" for=>Login</label>
     <input th:name="username"
            th:type="text"
            class="form-control"
-           th:value="${user.username}"
+           th:value="${username}"
            id="login_new_user"
            placeholder="Login"/>
   </div>
 
 
   <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
-    <label class="font-weight-bold" for="personWhoStudiesJava">Is learning Java?</label>
+    <label class="font-weight-bold" for=>Is learning Java?</label>
     <input th:name="personWhoStudiesJava" th:type="text"
            class="form-control"
-           th:value="${user.personWhoStudiesJava}"
+           th:value="${personWhoStudiesJava}"
            id="personWhoStudiesJava_new_user"
            placeholder="Is learning Java?"/>
   </div>
 
 
   <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
-    <label class="font-weight-bold" for="password">Password</label>
-    <input th:name="password" th:type="password" class="form-control" th:value="${user.getPassword()}"
-           id="password_new_user" placeholder="Password"/>
+    <label class="font-weight-bold" for=>Password</label>
+    <input th:name="password"
+           th:type="password"
+           class="form-control"
+           th:value="${password}"
+           id="password_new_user"
+           placeholder="Password"/>
   </div>
 
 
@@ -62,12 +65,101 @@
     </select>
   </div>
 
-  <br>
-  <div class="container text-center col-md-4">
+    <br>
+    <div class="container text-center col-md-4">
 
-    <button type="submit" class="btn btn-success btn-lg">Add new user</button>
-  </div>
+      <button type="submit" class="btn btn-success btn-lg" id="createUserBtn">Add new user</button>
+    </div>
 
-</form>
-<!--  Конец тела окна-->
+  </form>
+  <!--  Конец тела окна-->
 </div>
+
+
+<script>
+  const form = document.getElementById("newUserForm");
+  const createUserBtn = document.getElementById("createUserBtn");
+
+  createUserBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    fetch("/api/add", {
+      method: "POST",
+      body: formData,
+    })
+    .then((response) => {
+      if (response.ok) {
+
+        // Обновить страницу или перенаправить на другую страницу
+        window.location.href = "/admin";
+
+      } else {
+        alert("Ошибка при создании пользователя");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  });
+</script>
+
+
+<!--<style>-->
+<!--  .form-group {-->
+<!--    max-width: 400px;-->
+<!--    margin: 0 auto;-->
+<!--  }-->
+
+<!--  .form-control {-->
+<!--    width: 100%;-->
+<!--  }-->
+<!--</style>-->
+
+
+<!--<div th:fragment="newUserFormFragment">-->
+
+<!--  <form class="d-flex flex-column align-items-center">-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="name">Name:</label>-->
+<!--      <input type="text" class="form-control" id="name" placeholder="Enter name">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="last-name">Last Name:</label>-->
+<!--      <input type="text" class="form-control" id="last-name" placeholder="Enter last name">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="login">Login:</label>-->
+<!--      <input type="text" class="form-control" id="login" placeholder="Enter login">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="java">Is learning Java?</label>-->
+<!--      <input type="text" class="form-control" id="java" placeholder="Enter 'Yes' or 'No'">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="password">Password:</label>-->
+<!--      <input type="password" class="form-control" id="password" placeholder="Enter password">-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="role">Role:</label>-->
+<!--      <select class="form-control form-control-sm" id="role" multiple>-->
+<!--        <option>User</option>-->
+<!--        <option>Admin</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <button type="submit" class="btn btn-success">Add User</button>-->
+<!--  </form>-->
+
+
+<!--</div>-->
+
+<!--<script src="/static/js/addNewUserForm.js" > </script>-->
+
+
