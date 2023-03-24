@@ -1,0 +1,73 @@
+
+
+<div th:fragment="newUserFormFragment">
+<form th:method="POST" th:action="@{/addUser}" th:object="${user}">
+
+
+  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+    <label class="font-weight-bold" for="name">Name</label>
+    <input th:name="name"
+           th:type="text"
+           class="form-control"
+           th:value="${name}"
+           id="name_new_user"
+           placeholder="Name"/>
+  </div>
+
+
+  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+    <label class="font-weight-bold" for="lastname">Last name</label>
+    <input th:name="lastname"
+           th:type="text"
+           class="form-control"
+           th:value="${user.lastname}"
+           id="lastname_new_user"
+           placeholder="Last name"/>
+  </div>
+
+
+  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+    <label class="font-weight-bold" for="login">Login</label>
+    <input th:name="username"
+           th:type="text"
+           class="form-control"
+           th:value="${user.username}"
+           id="login_new_user"
+           placeholder="Login"/>
+  </div>
+
+
+  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+    <label class="font-weight-bold" for="personWhoStudiesJava">Is learning Java?</label>
+    <input th:name="personWhoStudiesJava" th:type="text"
+           class="form-control"
+           th:value="${user.personWhoStudiesJava}"
+           id="personWhoStudiesJava_new_user"
+           placeholder="Is learning Java?"/>
+  </div>
+
+
+  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+    <label class="font-weight-bold" for="password">Password</label>
+    <input th:name="password" th:type="password" class="form-control" th:value="${user.getPassword()}"
+           id="password_new_user" placeholder="Password"/>
+  </div>
+
+
+  <div class="container col-md-4 d-flex flex-column justify-content-center align-items-center">
+    <label class="font-weight-bold" for="roles_new_user">Role</label>
+    <select multiple class="form-control" size="2" id="roles_new_user" name="roles">
+      <option th:each="roles : ${roleList}" th:text="${roles.getNoPrefix()}"
+              th:value="${roles.id}" th:selected="${user.roles.contains(roles)}"></option>
+    </select>
+  </div>
+
+  <br>
+  <div class="container text-center col-md-4">
+
+    <button type="submit" class="btn btn-success btn-lg">Add new user</button>
+  </div>
+
+</form>
+<!--  Конец тела окна-->
+</div>
