@@ -81,7 +81,24 @@
   </div>
 </div>
 
+<script>
 
+  fetch('/user')
+  .then(response => response.json())
+  .then(user => {
+    const tableBody = document.querySelector('tbody');
+    const row = tableBody.insertRow();
+    row.innerHTML = `
+            <td>${user.id}</td>
+            <td>${user.username}</td>
+            <td>${user.name}</td>
+            <td>${user.lastname}</td>
+            <td>${user.personWhoStudiesJava}</td>
+            <td>${user.roles}</td>
+        `;
+  });
+
+</script>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
