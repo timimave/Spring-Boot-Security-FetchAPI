@@ -9,11 +9,12 @@ public class UserDTO {
     private String PersonWhoStudiesJava;
    // private String password;
     private String username;
-    private Set<Role> roles;
+//    private Set<Role> roles;
+    private Set<RoleDTO> roles;
 
 
     public UserDTO(Long id, String name, String lastname, String personWhoStudiesJava, String username,
-        Set<Role> roles) {
+        Set<RoleDTO> roles) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -64,11 +65,12 @@ public class UserDTO {
         this.username = username;
     }
 
-    public Set<Role> getRoles() {
+    public Set<RoleDTO> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+
+    public void setRoles(Set<RoleDTO> roles) {
         this.roles = roles;
     }
 

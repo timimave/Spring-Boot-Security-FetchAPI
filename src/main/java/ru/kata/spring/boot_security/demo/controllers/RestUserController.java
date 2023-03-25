@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.kata.spring.boot_security.demo.model.Role;
+import ru.kata.spring.boot_security.demo.model.RoleDTO;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.model.UserDTO;
 import ru.kata.spring.boot_security.demo.services.UserService;
@@ -18,9 +22,7 @@ import ru.kata.spring.boot_security.demo.services.UserService;
         public ResponseEntity<UserDTO> getUser(Authentication authentication) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             User user = userService.getUserByName(userDetails.getUsername());
-            UserDTO userDTO = new UserDTO(user.getId(),user.getName(),user.getLastname(),
-                user.getPersonWhoStudiesJava(), user.getUsername(),user.getRoles());
+            UserDTO userDTO = userService.getUserDTOByName(userDetails.getUsername());
             return ResponseEntity.ok(userDTO);
         }
-
     }

@@ -2,8 +2,10 @@ package ru.kata.spring.boot_security.demo.services;
 
 
 
+import java.util.HashSet;
 import java.util.List;
 
+import java.util.Set;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ru.kata.spring.boot_security.demo.model.Role;
+import ru.kata.spring.boot_security.demo.model.RoleDTO;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.model.UserDTO;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 @Service
@@ -22,7 +27,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder cryptPasswordEncoder;
     private final RoleService roleService;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder cryptPasswordEncoder,
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder cryptPasswordEncoder,
         RoleService roleService) {
         this.userRepository = userRepository;
         this.cryptPasswordEncoder = cryptPasswordEncoder;
@@ -107,5 +112,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getUserByName(String username) {
         return userRepository.findByName(username);
+    }
+
+    @Override
+    public UserDTO getUserDTOByName(String name) {
+        User user = getUserByName(name);
+        Set<RoleDTO> roles = new HashSet<>();
+        for (Role role : user.getRoles()) {
+            roles.add(new RoleDTO(role.getId(), role.getRole()));
+        }
+        return new UserDTO(user.getId(), user.getName(), user.getLastname(),
+            user.getPersonWhoStudiesJava(), user.getUsername(), roles);
     }
 }

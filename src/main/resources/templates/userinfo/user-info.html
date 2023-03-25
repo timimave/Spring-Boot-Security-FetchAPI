@@ -83,20 +83,41 @@
 
 <script>
 
+  // fetch('/userRest')
+  // .then(response => response.json())
+  // .then(user => {
+  //   const tableBody = document.querySelector('tbody');
+  //   const row = tableBody.insertRow();
+  //   row.innerHTML = `
+  //           <td>${user.id}</td>
+  //           <td>${user.username}</td>
+  //           <td>${user.name}</td>
+  //           <td>${user.lastname}</td>
+  //           <td>${user.personWhoStudiesJava}</td>
+  //           <td>${user.roles}</td>
+  //       `;
+  // });
+
   fetch('/userRest')
   .then(response => response.json())
   .then(user => {
     const tableBody = document.querySelector('tbody');
     const row = tableBody.insertRow();
+    const roles = [];
+    for (const role of user.roles) {
+      roles.push(role.role);
+    }
     row.innerHTML = `
             <td>${user.id}</td>
             <td>${user.username}</td>
             <td>${user.name}</td>
             <td>${user.lastname}</td>
             <td>${user.personWhoStudiesJava}</td>
-            <td>${user.roles}</td>
+            <td>${roles.join(', ')}</td>
         `;
+    tableBody.appendChild(row);
   });
+
 
 </script>
 
