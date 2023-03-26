@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.util.StringUtils;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.RoleDTO;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -94,6 +95,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void updateUserWithRoles(Long userId, User user, Long[] roleIds) {
         user.setRoles(roleService.getRolesByIds(roleIds));
         user.setId(userId);
+
+        // Проверяем, что поле пароля не null и не пустое
+        if (StringUtils.hasText(user.getPassword())) {
+            // Хэшируем пароль и обновляем поле
+            user.setPassword(cryptPasswordEncoder.encode(user.getPassword()));
+        }
+
         updateUser(user);
     }
 
