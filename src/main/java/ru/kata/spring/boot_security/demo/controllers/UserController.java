@@ -32,7 +32,5 @@ public class UserController {
         model.addAttribute("user", user);
         redirectAttributes.addAttribute("from", "admin");
         return "userinfo/user-info";
-
     }
-
 }
