@@ -1,4 +1,5 @@
 
+// вывод юзеров на страницу
 fetch('/api/admin')
 .then(response => response.json())
 .then(users => {
@@ -25,6 +26,7 @@ fetch('/api/admin')
   });
 });
 
+// удаление юзера по id
 
 function deleteUser(id) {
   fetch(`/api/admin/${id}/delete`, { method: 'DELETE' })
