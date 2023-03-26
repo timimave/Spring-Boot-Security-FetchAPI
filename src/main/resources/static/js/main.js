@@ -13,7 +13,7 @@ fetch('/api/admin')
         <td>${user.name}</td>
         <td>${user.lastname}</td>
         <td>${user.personWhoStudiesJava}</td>
-        <td>${user.roles.join(', ')}</td>
+        <td>${user.roles.map(role => role.role).join(', ')}</td>
         <td>
           <a type="button" class="btn btn-primary" href="/admin/${user.id}/edit">Edit</a>
         </td>
