@@ -1,5 +1,5 @@
 
-fetch('/users')
+fetch('/api/admin')
 .then(response => response.json())
 .then(users => {
   const tableBody = document.querySelector('tbody');
@@ -7,6 +7,7 @@ fetch('/users')
   users.forEach(user => {
     const row = document.createElement('tr');
     row.innerHTML = `
+
         <td>${user.id}</td>
         <td>${user.username}</td>
         <td>${user.name}</td>
