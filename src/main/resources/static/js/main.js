@@ -18,12 +18,43 @@ fetch('/api/admin')
           <a type="button" class="btn btn-primary" href="/admin/${user.id}/edit">Edit</a>
         </td>
         <td>
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteUserModal" data-id="${user.id}">Delete</button>
+  <button type="button" class="btn btn-danger" onclick="deleteUser(${user.id})">Delete</button>
         </td>
       `;
     tableBody.appendChild(row);
   });
 });
 
+
+function deleteUser(id) {
+  fetch(`/api/admin/${id}/delete`, { method: 'DELETE' })
+  .then(response => {
+    if (response.ok) {
+      location.reload(); // обновляем страницу после удаления
+    } else {
+      alert('Ошибка при удалении пользователя');
+    }
+  });
+}
+
+// const deleteButtons = document.querySelectorAll('.btn-danger');
+//
+// deleteButtons.forEach(button => {
+//   button.addEventListener('click', event => {
+//     const url = event.target.dataset.url;
+//     const id = event.target.dataset.id;
+//     fetch(url, {
+//       method: 'DELETE',
+//     }).then(response => {
+//       if (response.ok) {
+//         const row = event.target.closest('tr');
+//         row.remove();
+//         // show success message or redirect to another page
+//       } else {
+//         // show error message
+//       }
+//     });
+//   });
+// });
 
 
