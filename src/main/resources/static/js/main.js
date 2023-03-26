@@ -16,7 +16,7 @@ fetch('/api/admin')
         <td>${user.personWhoStudiesJava}</td>
         <td>${user.roles.map(role => role.role).join(', ')}</td>
         <td>
-          <a type="button" class="btn btn-primary" href="/admin/${user.id}/edit">Edit</a>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUserModal">Edit</button>
         </td>
         <td>
   <button type="button" class="btn btn-danger" onclick="deleteUser(${user.id})">Delete</button>

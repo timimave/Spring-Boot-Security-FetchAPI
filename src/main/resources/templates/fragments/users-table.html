@@ -18,9 +18,11 @@
       </thead>
       <tbody id="users-table-body">
 
-                                    <!--   модальное окно для удаления -->
-                  <div th:replace="fragments/DeleteModalFragment :: deleteModal"></div>
+                    <!--   модальное окно для удаления -->
+  <div th:replace="fragments/DeleteModalFragment :: deleteModal"></div>
 
+  <!--модальное окно для редактирования -->
+  <div th:replace="fragments/EditModal :: EditUserModal"></div>
 
       </tbody>
 
