@@ -8,6 +8,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kata.spring.boot_security.demo.exception_handler.NoUserWithSuchIdException;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.model.UserDTO;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
@@ -43,6 +45,17 @@ public class RestAdminController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        User user = userService.getById(id);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            UserDTO userDTO = new UserDTO(user.getId(),user.getUsername(),user.getName(),user.getLastname());
+            return ResponseEntity.ok(userDTO);
+        }
+    }
+
     @PostMapping("/add")
     public ResponseEntity<?> addUser(@RequestBody User user) {
         userService.addUser(user);
@@ -58,14 +71,15 @@ public class RestAdminController {
             throw new NoUserWithSuchIdException(message);
         }
     }
-    @PutMapping(value = "/{id}/editUser") // 29
-    public ResponseEntity<User> updateUser (@PathVariable Long id,
-                                            @ModelAttribute("user") User user,
-                                            @RequestParam(required = false, value = "roles") Long[] roleIds) {
+
+    @PutMapping(value = "/{id}/editUser")
+    public ResponseEntity<User> updateUser(@PathVariable Long id,
+                                           @ModelAttribute("user") User user,
+                                           @RequestParam(name = "roles[]", required = false) Long[] roleIds) {
         userService.updateUserWithRoles(id, user, roleIds);
         return ResponseEntity.ok().build();
-
     }
+
 }
 
 // http://localhost:8080/api/admin/45/delete

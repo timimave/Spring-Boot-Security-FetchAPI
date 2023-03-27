@@ -1,18 +1,16 @@
 package ru.kata.spring.boot_security.demo.services;
 
 
-
 import java.util.HashSet;
 import java.util.List;
-
 import java.util.Set;
+import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import org.springframework.util.StringUtils;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.RoleDTO;
@@ -100,6 +98,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (StringUtils.hasText(user.getPassword())) {
             // Хэшируем пароль и обновляем поле
             user.setPassword(cryptPasswordEncoder.encode(user.getPassword()));
+        } else {
+            // Пароль не передан в запросе, получаем старый пароль пользователя и сохраняем его
+            User oldUser = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+            user.setPassword(oldUser.getPassword());
         }
 
         updateUser(user);

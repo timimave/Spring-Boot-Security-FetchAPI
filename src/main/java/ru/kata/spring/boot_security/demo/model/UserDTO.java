@@ -13,6 +13,7 @@ public class UserDTO {
     private Set<RoleDTO> roles;
 
 
+
     public UserDTO(Long id, String name, String lastname, String personWhoStudiesJava, String username,
         Set<RoleDTO> roles) {
         this.id = id;
@@ -21,6 +22,13 @@ public class UserDTO {
         PersonWhoStudiesJava = personWhoStudiesJava;
         this.username = username;
         this.roles = roles;
+    }
+
+    public UserDTO(Long id, String name, String lastname, String username) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.username = username;
     }
 
     public Long getId() {

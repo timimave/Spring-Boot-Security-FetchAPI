@@ -1,56 +1,65 @@
 
-<!-- Модальное окно для редактирования пользователя -->
+<!-- Модальное окно для редактирования пользователя-->
 <div th:fragment="EditUserModal">
-<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="editUserForm">
-          <input type="hidden" id="userIdInput" name="id">
-          <div class="form-group">
-            <label for="usernameInput">Username</label>
-            <input type="text" class="form-control" id="usernameInput" name="username" required>
-          </div>
-          <div class="form-group">
-            <label for="nameInput">Name</label>
-            <input type="text" class="form-control" id="nameInput" name="name" required>
-          </div>
-          <div class="form-group">
-            <label for="lastnameInput">Lastname</label>
-            <input type="text" class="form-control" id="lastnameInput" name="lastname" required>
-          </div>
-          <div class="form-group">
-            <label for="personWhoStudiesJavaInput">Person who studies Java</label>
-            <select class="form-control" id="personWhoStudiesJavaInput" name="personWhoStudiesJava">
-              <option value="y">Yes</option>
-              <option value="n">No</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="passwordInput">Password</label>
-            <input type="password" class="form-control" id="passwordInput" name="password" required>
-          </div>
-<!--          <div class="form-group">-->
-<!--            <label for="confirmPassInput">Confirm password</label>-->
-<!--            <input type="password" class="form-control" id="confirmPassInput" name="confirmPass" required>-->
-<!--          </div>-->
-          <div class="form-group">
-            <label for="rolesInput">Roles</label>
-            <select multiple class="form-control" id="rolesInput" name="roles">
-              <option value="1">Admin</option>
-              <option value="2">User</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </form>
+  <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form id="editUserForm" >
+            <input type="hidden" id="userIdInput" name="id">
+            <div class="form-group">
+              <label for="usernameInput">Username</label>
+              <input type="text" class="form-control" id="usernameInput" name="username" required>
+            </div>
+
+            <div class="form-group">
+              <label for="nameInput">Name</label>
+              <input type="text" class="form-control" id="nameInput" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="lastnameInput">Lastname</label>
+              <input type="text" class="form-control" id="lastnameInput" name="lastname" required>
+            </div>
+            <div class="form-group">
+              <label for="personWhoStudiesJavaInput">Person who studies Java</label>
+              <select class="form-control" id="personWhoStudiesJavaInput" name="personWhoStudiesJava">
+                <option value="y">Yes</option>
+                <option value="n">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="passwordInput">Password</label>
+              <input type="password" class="form-control" id="passwordInput" name="password" required>
+            </div>
+            <!--          <div class="form-group">-->
+            <!--            <label for="confirmPassInput">Confirm password</label>-->
+            <!--            <input type="password" class="form-control" id="confirmPassInput" name="confirmPass" required>-->
+            <!--          </div>-->
+            <div class="form-group">
+              <label for="rolesInput">Roles</label>
+              <select multiple class="form-control" id="rolesInput" name="roles[]">
+                <option value="1">Admin</option>
+                <option value="2">User</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
-</div>
+
+
+
+<!--<select multiple class="form-control" id="rolesInput" name="roles">-->
+
+

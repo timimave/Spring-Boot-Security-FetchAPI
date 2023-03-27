@@ -45,7 +45,7 @@ public class AdminController {
     public String adminAcc(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userService.getUserByName(userDetails.getUsername());
-        model.addAttribute("user", user);
+          model.addAttribute("user", user);
         model.addAttribute("roleList",roleService.getAllRoles());
         model.addAttribute("users", userService.getAllUsers());
         return "main/main";
@@ -91,4 +91,5 @@ public class AdminController {
         userService.addUser(user); //
         return "redirect:/admin";
     }
+
 }
