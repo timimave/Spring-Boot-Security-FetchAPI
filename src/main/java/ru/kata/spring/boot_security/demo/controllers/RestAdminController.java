@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -54,7 +55,7 @@ public class RestAdminController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String>CreateNewUser(@RequestBody User user, BindingResult bindingResult) {
+    public ResponseEntity<String>CreateNewUser(@ModelAttribute User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(getErrorsFromBindingResult(bindingResult),
                 HttpStatus.BAD_REQUEST);

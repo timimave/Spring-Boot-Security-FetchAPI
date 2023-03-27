@@ -76,34 +76,34 @@
 </div>
 
 
-<script>
-  const form = document.getElementById("newUserForm");
-  const createUserBtn = document.getElementById("createUserBtn");
+<!--<script>-->
+<!--  const form = document.getElementById("newUserForm");-->
+<!--  const createUserBtn = document.getElementById("createUserBtn");-->
 
-  createUserBtn.addEventListener("click", (event) => {
-    event.preventDefault();
+<!--  createUserBtn.addEventListener("click", (event) => {-->
+<!--    event.preventDefault();-->
 
-    const formData = new FormData(form);
+<!--    const formData = new FormData(form);-->
 
-    fetch("/api/add", {
-      method: "POST",
-      body: formData,
-    })
-    .then((response) => {
-      if (response.ok) {
+<!--    fetch("/api/add", {-->
+<!--      method: "POST",-->
+<!--      body: formData,-->
+<!--    })-->
+<!--    .then((response) => {-->
+<!--      if (response.ok) {-->
 
-        // Обновить страницу или перенаправить на другую страницу
-        window.location.href = "/admin";
+<!--        // Обновить страницу или перенаправить на другую страницу-->
+<!--        window.location.href = "/admin";-->
 
-      } else {
-        alert("Ошибка при создании пользователя");
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  });
-</script>
+<!--      } else {-->
+<!--        alert("Ошибка при создании пользователя");-->
+<!--      }-->
+<!--    })-->
+<!--    .catch((error) => {-->
+<!--      console.error(error);-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
 
 
 <!--<style>-->
@@ -160,6 +160,6 @@
 
 <!--</div>-->
 
-<!--<script src="/static/js/addNewUserForm.js" > </script>-->
+<!--<script src="/static/js/addNewUser.js" > </script>-->
 
 
