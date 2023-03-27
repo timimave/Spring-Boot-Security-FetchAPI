@@ -1,10 +1,14 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,10 +54,15 @@ public class RestAdminController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addUser(@RequestBody User user) {
+    public ResponseEntity<String>CreateNewUser(@RequestBody User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(getErrorsFromBindingResult(bindingResult),
+                HttpStatus.BAD_REQUEST);
+        }
         userService.addUser(user);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @DeleteMapping("/{userId}/delete")
     public String deleteUser(@PathVariable Long userId) {
         try {
@@ -67,12 +76,19 @@ public class RestAdminController {
 
     @PutMapping(value = "/{id}/editUser")
     public ResponseEntity<User> updateUser(@PathVariable Long id,
-                                            @RequestBody User user) {
+        @RequestBody User user) {
         userService.updateUserWithRoles(id, user, user.getRoles()
             .stream()
             .map(Role::getId)
             .toArray(Long[]::new));
         return ResponseEntity.ok().build();
+    }
+
+    private String getErrorsFromBindingResult(BindingResult bindingResult) {
+        return bindingResult.getFieldErrors()
+            .stream()
+            .map(DefaultMessageSourceResolvable::getDefaultMessage)
+            .collect(Collectors.joining("; "));
     }
 
 }

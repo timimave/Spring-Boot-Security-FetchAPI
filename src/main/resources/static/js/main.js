@@ -33,11 +33,8 @@ fetch('/api/admin')
       fetch(`/api/admin/${userId}`)
       .then(response => response.json())
       .then(data => {
+
         // Заполняем соответствующие поля на модальном окне данными пользователя
-        // modal.querySelector('#userIdInput').value = data.id;
-        // modal.querySelector('#usernameInput').value = data.username;
-        // modal.querySelector('#nameInput').value = data.name;
-        // modal.querySelector('#lastnameInput').value = data.lastname;
 
         modal.querySelector('#userIdInput').value = data.id;
         modal.querySelector('#usernameInput').value = data.username;
@@ -79,46 +76,50 @@ fetch('/api/admin')
   }
 
 
-window.onload = () => {
-  // Получаем форму и кнопку "Save changes"
-  const editUserForm = document.querySelector('#editUserForm');
-  const saveChangesBtn = document.querySelector('#editUserModal .modal-footer button[type="submit"]');
 
-// Добавляем обработчик на клик по кнопке "Save changes"
-  saveChangesBtn.addEventListener('click', (event) => {
-    event.preventDefault(); // Отменяем стандартное поведение кнопки (отправку формы)
 
-    // Получаем данные из формы
-    const formData = new FormData(editUserForm);
 
-    // Отправляем данные на сервер
-    fetch(`/api/admin/${formData.get('id')}/editUser`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: formData.get('username'),
-        name: formData.get('name'),
-        lastname: formData.get('lastname'),
-        personWhoStudiesJava: formData.get('personWhoStudiesJava'),
-        password: formData.get('password'),
-        role: formData.getAll('roles[]')
-      })
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to update user');
-      }
-      $('#editUserModal').modal('hide'); // Скрываем модальное окно
-      location.reload(); // Перезагружаем страницу, чтобы отобразить изменения
-    })
-    .catch(error => {
-      console.error(error);
-      alert('Failed to update user');
-    });
-  });
-};
+
+// window.onload = () => {
+//   // Получаем форму и кнопку "Save changes"
+//   const editUserForm = document.querySelector('#editUserForm');
+//   const saveChangesBtn = document.querySelector('#editUserModal .modal-footer button[type="submit"]');
+//
+// // Добавляем обработчик на клик по кнопке "Save changes"
+//   saveChangesBtn.addEventListener('click', (event) => {
+//     event.preventDefault(); // Отменяем стандартное поведение кнопки (отправку формы)
+//
+//     // Получаем данные из формы
+//     const formData = new FormData(editUserForm);
+//
+//     // Отправляем данные на сервер
+//     fetch(`/api/admin/${formData.get('id')}/editUser`, {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({
+//         username: formData.get('username'),
+//         name: formData.get('name'),
+//         lastname: formData.get('lastname'),
+//         personWhoStudiesJava: formData.get('personWhoStudiesJava'),
+//         password: formData.get('password'),
+//         role: formData.getAll('roles[]')
+//       })
+//     })
+//     .then(response => {
+//       if (!response.ok) {
+//         throw new Error('Failed to update user');
+//       }
+//       $('#editUserModal').modal('hide'); // Скрываем модальное окно
+//       location.reload(); // Перезагружаем страницу, чтобы отобразить изменения
+//     })
+//     .catch(error => {
+//       console.error(error);
+//       alert('Failed to update user');
+//     });
+//   });
+// };
 
 
 
