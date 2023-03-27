@@ -83,6 +83,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                     cryptPasswordEncoder.encode(user.getPassword()));
                 existingUser.setUsername(user.getUsername());
                 existingUser.setRoles(user.getRoles());
+                System.out.println("User updated: " + existingUser);
                 userRepository.save(existingUser);
                 return true;
             }
@@ -91,7 +92,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void updateUserWithRoles(Long userId, User user, Long[] roleIds) {
-        user.setRoles(roleService.getRolesByIds(roleIds));
+         user.setRoles(roleService.getRolesByIds(roleIds));
         user.setId(userId);
 
         // Проверяем, что поле пароля не null и не пустое

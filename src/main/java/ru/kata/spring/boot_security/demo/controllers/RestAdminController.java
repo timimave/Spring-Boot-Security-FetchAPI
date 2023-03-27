@@ -1,27 +1,20 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
-
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kata.spring.boot_security.demo.exception_handler.NoUserWithSuchIdException;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.model.UserDTO;
 import ru.kata.spring.boot_security.demo.services.RoleService;
@@ -74,9 +67,11 @@ public class RestAdminController {
 
     @PutMapping(value = "/{id}/editUser")
     public ResponseEntity<User> updateUser(@PathVariable Long id,
-                                           @ModelAttribute("user") User user,
-                                           @RequestParam(name = "roles[]", required = false) Long[] roleIds) {
-        userService.updateUserWithRoles(id, user, roleIds);
+                                            @RequestBody User user) {
+        userService.updateUserWithRoles(id, user, user.getRoles()
+            .stream()
+            .map(Role::getId)
+            .toArray(Long[]::new));
         return ResponseEntity.ok().build();
     }
 
@@ -84,3 +79,4 @@ public class RestAdminController {
 
 // http://localhost:8080/api/admin/45/delete
 // http://localhost:8080/api/admin/29/editUser
+// @RequestParam(name = "roles[]", required = false) Long[] roleIds

@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/admin").hasRole("ADMIN")
             .antMatchers("/user").hasAnyRole("USER", "ADMIN")
             .antMatchers(HttpMethod.DELETE, "/api/admin/{userId}/delete").hasRole("ADMIN") // Разрешаем удаление только администраторам
+//            .antMatchers(HttpMethod.PUT, "/api/admin/{id}/editUser").hasRole("ADMIN") // Разрешаем только администраторам
             .anyRequest().permitAll()
             .and()
             .formLogin()
