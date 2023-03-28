@@ -42,14 +42,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .cors()
-            .and()
-            .csrf().disable() // Отключаем CSRF защиту
+//            .cors()
+//            .and()
+//            .csrf().disable() // Отключаем CSRF защиту
             .authorizeRequests()
             .antMatchers("/admin").hasRole("ADMIN")
             .antMatchers("/user").hasAnyRole("USER", "ADMIN")
             .antMatchers(HttpMethod.DELETE, "/api/admin/{userId}/delete").hasRole("ADMIN") // Разрешаем удаление только администраторам
-//            .antMatchers(HttpMethod.PUT, "/api/admin/{id}/editUser").hasRole("ADMIN") // Разрешаем только администраторам
+             .antMatchers(HttpMethod.PUT, "/api/admin/{id}/editUser").hasRole("ADMIN")
+            .antMatchers(HttpMethod.POST, "/addUser").hasRole("ADMIN") // Разрешаем только администраторам
             .anyRequest().permitAll()
             .and()
             .formLogin()

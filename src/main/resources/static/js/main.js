@@ -81,7 +81,8 @@ editUserForm.addEventListener('submit', event => {
     method: 'PUT',
     body: JSON.stringify(userData),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': csrfToken
     }
   })
   .then(response => {
@@ -103,8 +104,7 @@ editUserForm.addEventListener('submit', event => {
 
 
 // получение CSRF-токена ------
-// const csrfToken = document.querySelector('input[name="_csrf"]').value;
-
+ const csrfToken = document.querySelector('input[name="_csrf"]').value;
 // удаление юзера по id --------------------------------------------------------
   function deleteUser(id) {
     fetch(`/api/admin/${id}/delete`,
