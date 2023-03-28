@@ -1,3 +1,4 @@
+
 // вывод юзеров на страницу------------------------------------------------------
 fetch('/api/admin')
 .then(response => response.json())
@@ -42,12 +43,60 @@ fetch('/api/admin')
         modal.querySelector('#lastnameInput').value = data.lastname;
         modal.querySelector('#personWhoStudiesJavaInput').value = data.personWhoStudiesJava;
         modal.querySelector('#passwordInput').value = '';
-        modal.querySelectorAll('#rolesInput option').forEach(option => {
-          option.selected = !!data.roles.some(role => role.role === option.text)
-
-        });
+        const rolesInput = modal.querySelector('#rolesInput');
+        if (data.roles) {
+          rolesInput.querySelectorAll('option').forEach(option => {
+            option.selected = data.roles.some(role => role.role === option.text);
+          });
+        }
       });
     });
+  });
+});
+
+// Добавляем обработчик события отправки формы
+editUserForm.addEventListener('submit', event => {
+  event.preventDefault(); // отменяем стандартное поведение браузера
+
+  const userId = document.querySelector('#userIdInput').value;
+
+  // Собираем данные из формы
+  const formData = new FormData(editUserForm);
+  const userData = {
+
+    id: document.querySelector('#userIdInput').value,
+    username: document.querySelector('#usernameInput').value,
+    name: document.querySelector('#nameInput').value,
+    lastname: document.querySelector('#lastnameInput').value,
+    personWhoStudiesJava: document.querySelector('#personWhoStudiesJavaInput').value,
+    password: document.querySelector('#passwordInput').value,
+    roles: Array.from(document.querySelectorAll('#rolesInput option:checked')).map(option => ({id: option.value}))
+
+  };
+
+  console.log('roles:', userData.roles);
+
+  // Отправляем PUT-запрос на сервер для сохранения изменений
+  fetch(`/api/admin/${userId}/editUser`, {
+    method: 'PUT',
+    body: JSON.stringify(userData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+      // Если запрос успешно выполнен, перезагружаем страницу
+      location.reload();
+    } else {
+      // Если сервер вернул ошибку, выводим сообщение об ошибке
+      alert('Failed to save changes');
+    }
+  })
+  .catch(error => {
+    // Если произошла ошибка при выполнении запроса, выводим сообщение об ошибке
+    console.error(error);
+    alert('Failed to save changes');
   });
 });
 

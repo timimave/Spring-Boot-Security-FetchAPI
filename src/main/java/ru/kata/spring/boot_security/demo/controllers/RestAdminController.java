@@ -78,7 +78,8 @@ public class RestAdminController {
 
     @PutMapping(value = "/{id}/editUser")
     public ResponseEntity<User> updateUser(@PathVariable Long id,
-        @RequestBody User user) {
+                                            @RequestBody User user) {
+        System.out.println("Received user data: ---------------------------------------------------------------------------------------------------------" + user);
         userService.updateUserWithRoles(id, user, user.getRoles()
             .stream()
             .map(Role::getId)
