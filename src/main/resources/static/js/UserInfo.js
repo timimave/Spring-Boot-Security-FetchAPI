@@ -1,3 +1,4 @@
+// userPanel script
 $(document).ready(function(){
   $.get("api/admin/currentUser", function(data, status){
     console.log(status);
