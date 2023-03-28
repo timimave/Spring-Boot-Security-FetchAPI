@@ -45,12 +45,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //            .cors()
 //            .and()
 //            .csrf().disable() // Отключаем CSRF защиту
+
             .authorizeRequests()
             .antMatchers("/admin").hasRole("ADMIN")
             .antMatchers("/user").hasAnyRole("USER", "ADMIN")
             .antMatchers(HttpMethod.DELETE, "/api/admin/{userId}/delete").hasRole("ADMIN") // Разрешаем удаление только администраторам
              .antMatchers(HttpMethod.PUT, "/api/admin/{id}/editUser").hasRole("ADMIN")
-            .antMatchers(HttpMethod.POST, "/addUser").hasRole("ADMIN") // Разрешаем только администраторам
+            .antMatchers(HttpMethod.POST, "/addUser").hasRole("ADMIN")
             .anyRequest().permitAll()
             .and()
             .formLogin()
