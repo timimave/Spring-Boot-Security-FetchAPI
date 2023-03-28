@@ -11,18 +11,15 @@
 
   <title>Hello, world!</title>
 
-
-
 </head>
-
 <!--данные роли текущего пользователя-->
 <body data-user-role="user">
 
 <!--  фрагмент шапки-->
 <div th:replace="fragments/header :: headerFragment"></div>
 
-<div class="row">
 
+ <div class="row">
 
   <div class="col-2">
     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -33,8 +30,7 @@
     </div>
   </div>
 
-
-  <div class="col-10">
+   <div class="col-10">
     <div class="tab-content" id="v-pills-tabContent">
       <div class="tab-pane fade show active" id="v-pills-admin" role="tabpanel" aria-labelledby="v-pills-home-tab">
 
@@ -63,22 +59,22 @@
             </div>
           </div>
           <div class="tab-pane fade" id="new-user" role="tabpanel" aria-labelledby="new-user-tab">New user form
-
             <!-----фрагмент--new user form--->
             <div th:replace="fragments/newUserForm :: newUserFormFragment"></div>
 
           </div>
         </div>
       </div>
-      <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-profile-tab">User panel
-      </div>
+
+                    <!-- UserPanel-->
+
+
     </div>
   </div>
 </div>
 
 
-<!-- Подключение библиотек и стилей -->
-
+                    <!-- Подключение библиотек и стилей -->
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -99,11 +95,8 @@
 
 <script src="/js/addNewUser.js"> </script>
 
-<script>
+<script src="/static/js/UserInfo.js"></script>
 
-
-
-</script>
 
 </body>
 </html>

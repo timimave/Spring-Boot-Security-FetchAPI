@@ -1,28 +1,4 @@
 
-// document.getElementById("newUserForm").addEventListener("submit", function(event) {
-//   event.preventDefault(); // остановить отправку формы по умолчанию
-//   const form = event.target;
-//   const formData = new FormData(form);
-//   fetch('/api/admin/add', {
-//     method: 'POST',
-//     body: formData
-//   })
-//   .then(response => {
-//     if (response.ok) {
-//       console.log('User added!');
-//       // выполнить какие-либо действия после успешного добавления пользователя
-//     } else {
-//       console.error('Error adding user');
-//       // выполнить какие-либо действия в случае ошибки при добавлении пользователя
-//     }
-//   })
-//   .catch(error => {
-//     console.error('Error adding user', error);
-//     // выполнить какие-либо действия в случае ошибки при добавлении пользователя
-//   });
-// });
-
-
 document.getElementById("newUserForm").addEventListener("submit", function(event) {
   event.preventDefault(); // остановить отправку формы по умолчанию
   const form = event.target;
@@ -43,16 +19,15 @@ document.getElementById("newUserForm").addEventListener("submit", function(event
   })
   .then(response => {
     if (response.ok) {
-      console.log('User added!');
-      // выполнить какие-либо действия после успешного добавления пользователя
+      console.log('');
     } else {
       console.error('Error adding user');
-      // выполнить какие-либо действия в случае ошибки при добавлении пользователя
+
     }
   })
   .catch(error => {
     console.error('Error adding user', error);
-    // выполнить какие-либо действия в случае ошибки при добавлении пользователя
+
   });
 });
 

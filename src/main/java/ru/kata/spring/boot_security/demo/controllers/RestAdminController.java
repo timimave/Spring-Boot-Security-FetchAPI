@@ -1,14 +1,12 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kata.spring.boot_security.demo.exception_handler.NoUserWithSuchIdException;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -42,6 +41,12 @@ public class RestAdminController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+    @GetMapping("/currentUser")
+    @ResponseBody
+    public UserDTO getCurrentUser(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return userService.getUserDTOByName(userDetails.getUsername());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
@@ -55,13 +60,9 @@ public class RestAdminController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String>CreateNewUser(@ModelAttribute User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(getErrorsFromBindingResult(bindingResult),
-                HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<String> CreateNewUser(@ModelAttribute User user) {
         userService.addUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{userId}/delete")
@@ -85,12 +86,12 @@ public class RestAdminController {
         return ResponseEntity.ok().build();
     }
 
-    private String getErrorsFromBindingResult(BindingResult bindingResult) {
-        return bindingResult.getFieldErrors()
-            .stream()
-            .map(DefaultMessageSourceResolvable::getDefaultMessage)
-            .collect(Collectors.joining("; "));
-    }
+//    private String getErrorsFromBindingResult(BindingResult bindingResult) {
+//        return bindingResult.getFieldErrors()
+//            .stream()
+//            .map(DefaultMessageSourceResolvable::getDefaultMessage)
+//            .collect(Collectors.joining("; "));
+//    }
 
 }
 
