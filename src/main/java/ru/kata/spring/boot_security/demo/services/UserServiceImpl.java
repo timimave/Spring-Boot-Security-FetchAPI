@@ -92,19 +92,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void updateUserWithRoles(Long userId, User user, Long[] roleIds) {
-         user.setRoles(roleService.getRolesByIds(roleIds));
+        user.setRoles(roleService.getRolesByIds(roleIds));
         user.setId(userId);
-
-        // Проверяем, что поле пароля не null и не пустое
         if (StringUtils.hasText(user.getPassword())) {
-            // Хэшируем пароль и обновляем поле
             user.setPassword(cryptPasswordEncoder.encode(user.getPassword()));
         } else {
-            // Пароль не передан в запросе, получаем старый пароль пользователя и сохраняем его
             User oldUser = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
             user.setPassword(oldUser.getPassword());
         }
-
         updateUser(user);
     }
 

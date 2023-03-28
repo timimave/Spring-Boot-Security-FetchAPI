@@ -41,6 +41,7 @@ public class RestAdminController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
     @GetMapping("/currentUser")
     @ResponseBody
     public UserDTO getCurrentUser(Authentication authentication) {
@@ -54,7 +55,7 @@ public class RestAdminController {
         if (user == null) {
             return ResponseEntity.notFound().build();
         } else {
-            UserDTO userDTO = new UserDTO(user.getId(),user.getUsername(),user.getName(),user.getLastname());
+            UserDTO userDTO = new UserDTO(user.getId(), user.getUsername(), user.getName(), user.getLastname());
             return ResponseEntity.ok(userDTO);
         }
     }
@@ -78,24 +79,11 @@ public class RestAdminController {
 
     @PutMapping(value = "/{id}/editUser")
     public ResponseEntity<User> updateUser(@PathVariable Long id,
-                                            @RequestBody User user) {
-        System.out.println("Received user data: ---------------------------------------------------------------------------------------------------------" + user);
+        @RequestBody User user) {
         userService.updateUserWithRoles(id, user, user.getRoles()
             .stream()
             .map(Role::getId)
             .toArray(Long[]::new));
         return ResponseEntity.ok().build();
     }
-
-//    private String getErrorsFromBindingResult(BindingResult bindingResult) {
-//        return bindingResult.getFieldErrors()
-//            .stream()
-//            .map(DefaultMessageSourceResolvable::getDefaultMessage)
-//            .collect(Collectors.joining("; "));
-//    }
-
 }
-
-// http://localhost:8080/api/admin/45/delete
-// http://localhost:8080/api/admin/29/editUser
-// @RequestParam(name = "roles[]", required = false) Long[] roleIds
