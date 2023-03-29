@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import ru.kata.spring.boot_security.demo.model.Role;
-import ru.kata.spring.boot_security.demo.model.RoleDTO;
+import ru.kata.spring.boot_security.demo.dto.RoleDTO;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.model.UserDTO;
+import ru.kata.spring.boot_security.demo.dto.UserDTO;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 @Service
@@ -129,4 +129,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return new UserDTO(user.getId(), user.getName(), user.getLastname(),
             user.getPersonWhoStudiesJava(), user.getUsername(), roles);
     }
+
 }
